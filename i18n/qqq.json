@@ -3,6 +3,11 @@
 		"authors": [
 		]
 	},
-	"wr-donation-desc": "{{desc|name=Donation|url=https://github.com/kolzchut/mediawiki-extensions-Donation}}",
-
+	"donation": "Name of special page",
+	"donation-desc": "{{desc|name=Donation|url=https://github.com/kolzchut/mediawiki-extensions-Donation}}",
+	"donation-title": "Title of special page",
+	"donation-thank-you": "Donation thank you message",
+	"donation-freq-once": "Donation frequency option",
+	"donation-freq-monthly": "Donation frequency option",
+	"donation-freq-annually": "Donation frequency option"
 }

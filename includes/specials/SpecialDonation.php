@@ -47,8 +47,7 @@ class SpecialDonation extends SpecialPage {
 		$out->addHTML( $html );
 
 		/* // thank you message
-		$msgname = 'donation-msg';
-		$out->addWikiText( $this->msg( $msgname )
+		$out->addWikiText( $this->msg( 'donation-thank-you' )
 			->numParams( $sum )
 			->params( $currencySign, $frequencyHuman )
 			->plain()

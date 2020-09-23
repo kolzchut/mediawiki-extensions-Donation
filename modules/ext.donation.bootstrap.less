@@ -2,7 +2,7 @@
 
 // Shorthand for background-image-svg in core
 .background-image-svg-quick( @url ) {
-	.background-image-svg( ~"@{url}.svg", ~"@{url}.png" );
+	.background-image-svg( ~'@{url}.svg', ~'@{url}.png' );
 }
 
 .CardField-input-wrapper {
@@ -23,13 +23,14 @@
 	width: 97%;
 	border-radius: 5px;
 }
+
 .CardField-button {
 	margin: auto;
 	position: static;
 	height: 100%;
 	width: 100%;
 	border-radius: 5px;
-	border: none;
+	border-width: 0;
 	background-color: #84bd00;
 	color: #feffdecf;
 	font-size: 16px;
@@ -47,29 +48,30 @@
 	height: 24px;
 	width: 189px;
 	padding: 0;
-	border-color: #00000033;
+	border-color: #0003;
 	border-style: solid;
 	border-width: thin;
 	border-radius: 5px;
 }
 
 .InputContainer#expiry {
-	width: 76px
+	width: 76px;
 }
+
 .InputContainer#cvv {
-	width: 39px
+	width: 39px;
 }
+
 .InputContainer#card_holder_id_number {
 	width: 100%;
 }
 
-.formWindow
-{
+.formWindow {
 	border-radius: 5px;
-	box-shadow:  0 4px 12px 4px rgba(0, 0, 0, 0.25);
-	-moz-box-shadow: 0 4px 12px 4px rgba(0, 0, 0, 0.25);
-	-webkit-box-shadow: 0 4px 12px 4px rgba(0, 0, 0, 0.25);
-	-o-box-shadow: 0 4px 12px 4px rgba(0, 0, 0, 0.25);
+	box-shadow: 0 4px 12px 4px rgba( 0, 0, 0, 0.25 );
+	-moz-box-shadow: 0 4px 12px 4px rgba( 0, 0, 0, 0.25 );
+	-webkit-box-shadow: 0 4px 12px 4px rgba( 0, 0, 0, 0.25 );
+	-o-box-shadow: 0 4px 12px 4px rgba( 0, 0, 0, 0.25 );
 	width: 100%;
 	position: static;
 	margin: auto;
@@ -78,9 +80,8 @@
 	padding-bottom: 6px;
 }
 
-.formTxtUp
-{
-	background-color: #ffffff;
+.formTxtUp {
+	background-color: #fff;
 	width: 100%;
 	position: static;
 	margin: auto auto 5px;
@@ -93,7 +94,7 @@
 	position: static;
 	margin: 10px auto auto;
 	text-align: center;
-	color: #000000;
+	color: #000;
 	font-size: 9px;
 	font-weight: bold;
 }
@@ -112,12 +113,15 @@
 #card-img.card-img-ae {
 	.background-image-svg-quick( 'images/cc/amex' );
 }
+
 #card-img.card-img-diners {
 	.background-image-svg-quick( 'images/cc/diners' );
 }
+
 #card-img.card-img-mc {
 	.background-image-svg-quick( 'images/cc/mastercard' );
 }
+
 #card-img.card-img-visa {
 	.background-image-svg-quick( 'images/cc/visa' );
 }
@@ -140,7 +144,7 @@
 
 .Card-Errors {
 	text-align: center;
-	color: red;
+	color: #f00;
 }
 
 .Display-None {

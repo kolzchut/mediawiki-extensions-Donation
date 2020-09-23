@@ -29,7 +29,8 @@ module.exports = function ( grunt ) {
 				'!vendor/**'
 			],
 			options: {
-				failOnError: false
+				failOnError: false,
+				fix: grunt.option( 'fix' )
 			}
 		},
 		banana: conf.MessagesDirs
