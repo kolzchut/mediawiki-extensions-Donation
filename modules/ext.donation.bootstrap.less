@@ -5,6 +5,11 @@
 	.background-image-svg( ~'@{url}.svg', ~'@{url}.png' );
 }
 
+// Hide the site's news ticker - should probably be handled elsewhere
+.marquee-wrapper {
+	display: none;
+}
+
 .CardField-input-wrapper {
 	position: static;
 	white-space: nowrap;
@@ -44,18 +49,15 @@
 .InputContainer {
 	position: relative;
 	display: block;
-	margin: 0;
 	height: 24px;
 	width: 189px;
-	padding: 0;
 	border-color: #0003;
 	border-style: solid;
 	border-width: thin;
-	border-radius: 5px;
 }
 
 .InputContainer#expiry {
-	width: 76px;
+	width: 60px;
 }
 
 .InputContainer#cvv {
@@ -64,39 +66,6 @@
 
 .InputContainer#card_holder_id_number {
 	width: 100%;
-}
-
-.formWindow {
-	border-radius: 5px;
-	box-shadow: 0 4px 12px 4px rgba( 0, 0, 0, 0.25 );
-	-moz-box-shadow: 0 4px 12px 4px rgba( 0, 0, 0, 0.25 );
-	-webkit-box-shadow: 0 4px 12px 4px rgba( 0, 0, 0, 0.25 );
-	-o-box-shadow: 0 4px 12px 4px rgba( 0, 0, 0, 0.25 );
-	width: 100%;
-	position: static;
-	margin: auto;
-	padding-top: 10px;
-	height: auto;
-	padding-bottom: 6px;
-}
-
-.formTxtUp {
-	background-color: #fff;
-	width: 100%;
-	position: static;
-	margin: auto auto 5px;
-	text-align: center;
-	color: #84bd00c7;
-}
-
-.formTxtDown {
-	width: 100%;
-	position: static;
-	margin: 10px auto auto;
-	text-align: center;
-	color: #000;
-	font-size: 9px;
-	font-weight: bold;
 }
 
 #card-img {
