@@ -34,14 +34,14 @@
 
 		$cardErrors.empty();
 
-		if ( err.messages ) {
-			err.messages.forEach( function ( errMsg ) {
+		if ( Array.isArray( err ) ) {
+			err.forEach( function ( errMsg ) {
 				errAll += ' - ' + errMsg.message;
 				// $cardErrors.append('<p>' + errMsg.message + '</p>');
 				addErr( errMsg.param, errMsg.message );
 			} );
 		} else {
-			errAll = 'server error.';
+			errAll = 'Unknown server error.';
 			// $cardErrors.append('<p>' + errAll + '</p>');
 			addErr( '', errAll );
 		}
@@ -59,21 +59,19 @@
 				amount: $amount.val(),
 				tokenize: true
 			},
-			function ( err ) {
+			function ( err, result ) {
 				var $btn = $( '.CardField-button' );
 
-				if ( err ) {
+				if ( Object.prototype.hasOwnProperty.call( result, 'errors' ) ) {
 					btnChargeEnabled = true;
 					$btn.prop( 'disabled', false );
 					$btn.removeClass( 'disabled-CardField-button' );
-					handleErrors( err );
-					return;
+					handleErrors( result.errors );
+				} else {
+					$cardErrors.addClass( 'Display-None' );
+					// eslint-disable-next-line no-alert
+					alert( 'Payment charge success!' + result );
 				}
-
-				$cardErrors.addClass( 'Display-None' );
-				// eslint-disable-next-line no-alert
-				alert( 'Payment charge success!' );
-
 			}
 		);
 	}
@@ -166,7 +164,7 @@
 			},
 			expiry: {
 				selector: '#expiry',
-				placeholder: 'MM/YYYY',
+				placeholder: 'MM/YY',
 				version: '1',
 				tabindex: 3
 			}
