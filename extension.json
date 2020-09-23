@@ -1,0 +1,42 @@
+{
+	"name": "Donation",
+	"version": "0.0.1",
+	"author": [
+		"Dror S. [FFS] ([http://www.kolzchut.org.il Kol-Zchut])"
+	],
+	"url": "https://github.com/kolzchut/mediawiki-extensions-Donation",
+	"descriptionmsg": "donation-desc",
+	"license-name": "GPL-2.0-or-later",
+	"type": "specialpage",
+	"AutoloadClasses": {
+		"SpecialDonation": "includes/specials/SpecialDonation.php"
+	},
+	"config": {
+	},
+	"ExtensionMessagesFiles": {
+		"DonationAlias": "Donation.i18n.alias.php"
+	},
+	"MessagesDirs": {
+		"Donation": [
+			"i18n"
+		]
+	},
+	"SpecialPages": {
+		"Donation": "SpecialDonation"
+	},
+	"ResourceModules": {
+		"ext.donation.bootstrap": {
+			"styles": "ext.donation.bootstrap.less",
+			"scripts": "ext.donation.bootstrap.js",
+			"dependencies": [ "mediawiki.util" ],
+			"targets": [ "desktop", "mobile" ]
+
+		}
+	},
+	"ResourceFileModulePaths": {
+		"localBasePath": "modules",
+		"remoteExtPath": "WikiRights/Donation/modules"
+	},
+
+	"manifest_version": 2
+}

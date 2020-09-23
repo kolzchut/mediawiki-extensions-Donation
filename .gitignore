@@ -1,0 +1,8 @@
+.*.swp
+*~
+/.project
+/composer.lock
+/package-lock.json
+/vendor/
+/node_modules/
+/.eslintcache

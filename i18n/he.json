@@ -1,0 +1,14 @@
+{
+	"@metadata": {
+		"authors": [
+		]
+	},
+	"donation": "תרומה",
+	"donation-desc": "עמוד תודה לתרומות",
+	"donation-thank-you": "$3, תודה שתרמת $1$2!",
+	"donation-title": "תרומה",
+
+	"donation-freq-once": "חד-פעמית",
+	"donation-freq-monthly": "מדי חודש",
+	"donation-freq-annually": "מדי שנה"
+}

@@ -1,0 +1,36 @@
+<div id="cardwindow">
+	<form class="ElementsApp" id="payment_form">
+
+		<div class="formWindow">
+			<div class="CardField-input-wrapper">
+				<div id="card-img" aria-hidden="true"></div>
+				<span class="CardField-child">
+					<span id="credit_card_number" class="InputContainer"></span>
+				</span>
+			</div>
+			<div class="CardField-input-wrapper">
+				<span class="CardField-child">
+					<span id="expiry" class="InputContainer"></span>
+				</span>
+
+				<span class="CardField-child">
+					<span id="cvv" class="InputContainer"></span>
+				</span>
+			</div>
+			<div class="CardField-input-wrapper">
+				<span class="CardField-child">
+					<span id="card_holder_id_number" class="InputContainer"></span>
+				</span>
+			</div>
+
+			<div class="Card-Errors"></div>
+
+			<div class="CardField-button-wrapper">
+				<button type="submit" disabled="" class="CardField-button">
+					<span dir="ltr">{{currency}}<span id="amount-on-btn">{{sum}}</span></span> לתרומה
+				</button>
+			</div>
+		</div>
+
+	</form>
+</div>

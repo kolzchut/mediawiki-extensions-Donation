@@ -1,0 +1,148 @@
+@import 'mediawiki.mixins';
+
+// Shorthand for background-image-svg in core
+.background-image-svg-quick( @url ) {
+	.background-image-svg( ~"@{url}.svg", ~"@{url}.png" );
+}
+
+.CardField-input-wrapper {
+	position: static;
+	white-space: nowrap;
+	overflow: hidden;
+	padding-top: 6px;
+	margin: -2px auto auto;
+	width: 93%;
+}
+
+.CardField-button-wrapper {
+	position: static;
+	white-space: nowrap;
+	overflow: hidden;
+	margin: 6px auto auto;
+	height: 36px;
+	width: 97%;
+	border-radius: 5px;
+}
+.CardField-button {
+	margin: auto;
+	position: static;
+	height: 100%;
+	width: 100%;
+	border-radius: 5px;
+	border: none;
+	background-color: #84bd00;
+	color: #feffdecf;
+	font-size: 16px;
+	cursor: pointer;
+}
+
+.CardField-child {
+	display: inline-block;
+}
+
+.InputContainer {
+	position: relative;
+	display: block;
+	margin: 0;
+	height: 24px;
+	width: 189px;
+	padding: 0;
+	border-color: #00000033;
+	border-style: solid;
+	border-width: thin;
+	border-radius: 5px;
+}
+
+.InputContainer#expiry {
+	width: 76px
+}
+.InputContainer#cvv {
+	width: 39px
+}
+.InputContainer#card_holder_id_number {
+	width: 100%;
+}
+
+.formWindow
+{
+	border-radius: 5px;
+	box-shadow:  0 4px 12px 4px rgba(0, 0, 0, 0.25);
+	-moz-box-shadow: 0 4px 12px 4px rgba(0, 0, 0, 0.25);
+	-webkit-box-shadow: 0 4px 12px 4px rgba(0, 0, 0, 0.25);
+	-o-box-shadow: 0 4px 12px 4px rgba(0, 0, 0, 0.25);
+	width: 100%;
+	position: static;
+	margin: auto;
+	padding-top: 10px;
+	height: auto;
+	padding-bottom: 6px;
+}
+
+.formTxtUp
+{
+	background-color: #ffffff;
+	width: 100%;
+	position: static;
+	margin: auto auto 5px;
+	text-align: center;
+	color: #84bd00c7;
+}
+
+.formTxtDown {
+	width: 100%;
+	position: static;
+	margin: 10px auto auto;
+	text-align: center;
+	color: #000000;
+	font-size: 9px;
+	font-weight: bold;
+}
+
+#card-img {
+	.background-image-svg-quick( 'images/cc/generic' );
+	background-size: contain;
+	height: 20px;
+	width: 31px;
+	background-repeat: no-repeat;
+	float: left;
+	margin-top: 2px;
+	margin-right: 1px;
+}
+
+#card-img.card-img-ae {
+	.background-image-svg-quick( 'images/cc/amex' );
+}
+#card-img.card-img-diners {
+	.background-image-svg-quick( 'images/cc/diners' );
+}
+#card-img.card-img-mc {
+	.background-image-svg-quick( 'images/cc/mastercard' );
+}
+#card-img.card-img-visa {
+	.background-image-svg-quick( 'images/cc/visa' );
+}
+
+#cardwindow {
+	max-width: 495px;
+}
+
+.focusedBorder {
+	border-color: #00000069;
+	border-style: solid;
+	border-width: thin;
+	border-radius: 5px;
+}
+
+.disabled-CardField-button {
+	background-color: #b8bbb2;
+	cursor: none;
+}
+
+.Card-Errors {
+	text-align: center;
+	color: red;
+}
+
+.Display-None {
+	display: none;
+}
