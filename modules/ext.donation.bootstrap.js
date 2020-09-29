@@ -30,20 +30,16 @@
 	}
 
 	function handleErrors( err ) {
-		var errAll;
-
 		$cardErrors.empty();
 
 		if ( Array.isArray( err ) ) {
 			err.forEach( function ( errMsg ) {
-				errAll += ' - ' + errMsg.message;
 				// $cardErrors.append('<p>' + errMsg.message + '</p>');
 				addErr( errMsg.param, errMsg.message );
 			} );
 		} else {
-			errAll = 'Unknown server error.';
 			// $cardErrors.append('<p>' + errAll + '</p>');
-			addErr( '', errAll );
+			addErr( '', err );
 		}
 
 		$cardErrors.removeClass( 'Display-None' );
@@ -57,20 +53,22 @@
 				// eslint-disable-next-line camelcase
 				terminal_name: 'kolzchut',
 				amount: $amount.val(),
-				tokenize: true
+				tokenize: true,
+				// eslint-disable-next-line camelcase
+				response_language: mw.config.get( 'wgContentLanguage' ) === 'he' ? 'hebrew' : 'english'
 			},
 			function ( err, result ) {
 				var $btn = $( '.CardField-button' );
 
-				if ( Object.prototype.hasOwnProperty.call( result, 'errors' ) ) {
+				if ( result.errors || result.transaction_response.success === false ) {
 					btnChargeEnabled = true;
 					$btn.prop( 'disabled', false );
 					$btn.removeClass( 'disabled-CardField-button' );
-					handleErrors( result.errors );
+					handleErrors( result.errors || result.transaction_response.error );
 				} else {
 					$cardErrors.addClass( 'Display-None' );
-					// eslint-disable-next-line no-alert
-					alert( 'Payment charge success!' + result );
+					mw.notify( 'Payment charge success!' + result, { autoHide: false } );
+
 				}
 			}
 		);
