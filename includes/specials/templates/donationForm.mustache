@@ -1,34 +1,64 @@
-<div id="cardwindow">
-	<form class="ElementsApp" id="payment_form">
-		<div class="CardField-input-wrapper">
-			<label for="amount">סכום</label><input value="50" name="amount" id="amount">
+<div class="donation-form-wrapper">
+	<form class="donation-form">
+		<ul class="Card-Errors"></ul>
+		<div class="d-input-group">
+			<div class="suggested-amount-boxes">
+				<div class="suggested-amount-box">
+					<input class="box-input suggested-amount mc_input" id="donation_suggested_amount_1" type="radio" value="50" name="suggested_amount">
+					<label class="box-label" for="donation_suggested_amount_1"><span class="box-item mc_el usd  len-2"><span class="currency-sign">₪</span><span class="box-amount mc_amount symbol_first">50</span></span></label>
+				</div>
+				<div class="suggested-amount-box">
+					<input class="box-input suggested-amount mc_input" id="donation_suggested_amount_2" type="radio" value="191" name="suggested_amount">
+					<label class="box-label" for="donation_suggested_amount_2"><span class="box-item mc_el usd  len-2"><span class="currency-sign">₪</span><span class="box-amount mc_amount symbol_first">191</span></span></label>
+				</div>
+				<div class="suggested-amount-box">
+					<input class="box-input suggested-amount mc_input" id="donation_suggested_amount_3" type="radio" value="360" name="suggested_amount">
+					<label class="box-label" for="donation_suggested_amount_3"><span class="box-item mc_el usd  len-3"><span class="currency-sign">₪</span><span class="box-amount mc_amount symbol_first">360</span></span></label>
+				</div>
+			</div>
 		</div>
-		<div class="CardField-input-wrapper">
-			<div id="card-img" aria-hidden="true"></div>
-			<span class="CardField-child">
+		<div class="d-input-group">
+			<label class="label-tiny sr-only" for="amount">סכום אחר</label>
+			<input name="amount" id="amount" class="InputContainer" autocomplete="off" placeholder="סכום אחר">
+			<span class="currency">₪</span>
+		</div>
+		<div class="d-input-group">
+			<label class="label-tiny" for=credit_card_number">מס' אשראי</label>
+			<div class="CardField-child">
+				<div id="card-img" aria-hidden="true"></div>
 				<span id="credit_card_number" class="InputContainer"></span>
-			</span>
+			</div>
 		</div>
-		<div class="CardField-input-wrapper">
+		<div class="d-input-group">
 			<span class="CardField-child">
+				<label class="label-tiny" for="expiry">תוקף</label>
 				<span id="expiry" class="InputContainer"></span>
 			</span>
 
 			<span class="CardField-child">
+				<label class="label-tiny" for="cvv">CVV</label>
 				<span id="cvv" class="InputContainer"></span>
 			</span>
-		</div>
-		<div class="CardField-input-wrapper">
+
 			<span class="CardField-child">
+				<label class="label-tiny" for="card_holder_id_number">תעודת זהות</label>
 				<span id="card_holder_id_number" class="InputContainer"></span>
 			</span>
 		</div>
-
-		<div class="Card-Errors"></div>
-
-		<div class="CardField-button-wrapper">
-			<button type="submit" disabled="" class="CardField-button">
-				<span dir="ltr">{{currency}}<span id="amount-on-btn">{{sum}}</span></span> לתרומה
+		<div class="d-input-group">
+			<label class="label-tiny" for="email">דוא"ל</label>
+			<input type="email" id="email" name="email" placeholder="name@example.com" class="InputContainer">
+		</div>
+		<div class="d-input-group">
+			<label for="subscribe">
+				<input type="checkbox" id="subscribe" name="subscribe" checked>
+			מעוניין להירשם לניוזלטר</label>
+		</div>
+		<div>
+			<button type="submit" disabled="" class="btn btn-secondary">
+				<span class="btn-text">לתרומת
+					<span dir="ltr" class="sum"><span class="currency">{{currency}}</span><span class="number">{{sum}}</span></span>
+				</span>
 			</button>
 		</div>
 	</form>

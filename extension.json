@@ -26,6 +26,7 @@
 	},
 	"ResourceModules": {
 		"ext.donation.bootstrap": {
+			"class": "HelenaResourceLoaderModule",
 			"styles": "ext.donation.bootstrap.less",
 			"scripts": "ext.donation.bootstrap.js",
 			"dependencies": [ "mediawiki.util" ],

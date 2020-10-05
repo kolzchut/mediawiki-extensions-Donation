@@ -10,50 +10,43 @@
 	display: none;
 }
 
-.CardField-input-wrapper {
-	position: static;
-	white-space: nowrap;
-	overflow: hidden;
-	padding-top: 6px;
-	margin: -2px auto auto;
-	width: 93%;
+.donation-form-wrapper {
+	max-width: 360px;
 }
 
-.CardField-button-wrapper {
-	position: static;
-	white-space: nowrap;
-	overflow: hidden;
-	margin: 6px auto auto;
-	height: 36px;
-	width: 97%;
-	border-radius: 5px;
+.donation-form {
+	position: relative;
 }
 
-.CardField-button {
-	margin: auto;
-	position: static;
-	height: 100%;
-	width: 100%;
-	border-radius: 5px;
-	border-width: 0;
-	background-color: #84bd00;
-	color: #feffdecf;
-	font-size: 16px;
-	cursor: pointer;
+.d-input-group {
+	position: relative;
+	margin-bottom: 1em;
+	max-width: 210px;
+}
+
+label.label-tiny {
+	font-size: 12px;
+	display: block;
+	margin-bottom: 0;
 }
 
 .CardField-child {
 	display: inline-block;
+	position: relative; // Necessary for #card-img, but put here for simplicity
 }
 
 .InputContainer {
 	position: relative;
 	display: block;
-	height: 24px;
-	width: 189px;
-	border-color: #0003;
+	height: 26px;
+	width: 210px;
+	border-color: @color-green;
 	border-style: solid;
-	border-width: thin;
+	border-width: 1.5px;
+}
+
+.InputContainer#credit_card_number {
+	padding-right: 35px; // Leave space for the credit card image
 }
 
 .InputContainer#expiry {
@@ -65,7 +58,7 @@
 }
 
 .InputContainer#card_holder_id_number {
-	width: 100%;
+	width: 100px;
 }
 
 #card-img {
@@ -74,9 +67,9 @@
 	height: 20px;
 	width: 31px;
 	background-repeat: no-repeat;
-	float: left;
-	margin-top: 2px;
-	margin-right: 1px;
+	position: absolute;
+	right: 3px;
+	top: 3px;
 }
 
 #card-img.card-img-ae {
@@ -95,27 +88,77 @@
 	.background-image-svg-quick( 'images/cc/visa' );
 }
 
-#cardwindow {
-	max-width: 495px;
-}
-
-.focusedBorder {
-	border-color: #00000069;
-	border-style: solid;
-	border-width: thin;
-	border-radius: 5px;
-}
-
-.disabled-CardField-button {
-	background-color: #b8bbb2;
-	cursor: none;
+.focusedBorder,
+.InputContainer:focus {
+	border-color: @color-green;
+	border-width: 2px;
+	outline: none;
 }
 
 .Card-Errors {
-	text-align: center;
 	color: #f00;
 }
 
-.Display-None {
+.suggested-amount-boxes {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	grid-column-gap: 10px;
+	column-gap: 10px;
+}
+
+.suggested-amount-box {
+	height: 26px;
+}
+
+.suggested-amount-box .box-input {
+	float: left;
+	opacity: 0;
+	width: 0;
+	height: 0;
 	display: none;
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+
+.suggested-amount-box .box-input:checked + .box-label {
+	background-color: @color-green;
+	color: #fff;
+}
+
+.suggested-amount-box .box-amount {
+	position: relative;
+	vertical-align: top;
+}
+
+#amount {
+	padding-right: 20px;
+}
+
+#amount + .currency {
+    position: absolute;
+	top: 0;
+    right: 5px;
+	color: @color-green;
+}
+
+.currency-sign {
+	font-size: small;
+}
+
+.suggested-amount-box .box-label {
+	font-weight: 600;
+	height: 100%;
+	color: @color-green;
+	text-align: center;
+	border: 1.5px solid @color-green;
+	display: block;
+	-webkit-transition: color 0.1s, background-color 0.1s, border-color 0.1s, font-weight 0.1s;
+	-moz-transition: color 0.1s, background-color 0.1s, border-color 0.1s, font-weight 0.1s;
+	-ms-transition: color 0.1s, background-color 0.1s, border-color 0.1s, font-weight 0.1s;
+	-o-transition: color 0.1s, background-color 0.1s, border-color 0.1s, font-weight 0.1s;
+	transition: color 0.1s, background-color 0.1s, border-color 0.1s, font-weight 0.1s;
+	position: relative;
+	cursor: pointer;
+	margin: 0;
 }

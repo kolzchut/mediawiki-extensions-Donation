@@ -2,8 +2,11 @@
 	'use strict';
 
 	var fields,
+		errors = {},
 		$cardErrors = $( '.Card-Errors' ),
 		$amount = $( '#amount' ),
+		$suggestedAmount = $( 'input[name=suggested_amount]' ),
+		$btn = $( '.donation-form .btn' ),
 		btnChargeEnabled = true,
 		prefixErrCls = 'errcls-',
 		validCCN = false,
@@ -20,18 +23,28 @@
 		iframeCC.contentWindow.focus();
 	}
 
+	function toggleSubmitButton( forcedValue ) {
+		btnChargeEnabled = forcedValue || !btnChargeEnabled;
+		$btn.prop( 'disabled', !btnChargeEnabled );
+	}
+
 	function remErr( fld ) {
+		delete errors[ fld ];
 		$( '.' + prefixErrCls + fld ).remove();
+
+		if ( Object.keys( errors ).length === 0 ) {
+			toggleSubmitButton( true );
+		}
 	}
 
 	function addErr( fld, err ) {
 		remErr( fld );
-		$cardErrors.prepend( '<p class="' + prefixErrCls + fld + '">' + err + '</p>' );
+		errors[ fld ] = err;
+		$cardErrors.attr( 'role', 'alert' ).prepend( '<li class="' + prefixErrCls + fld + '">' + err + '</li>' );
+		toggleSubmitButton( false );
 	}
 
 	function handleErrors( err ) {
-		$cardErrors.empty();
-
 		if ( Array.isArray( err ) ) {
 			err.forEach( function ( errMsg ) {
 				// $cardErrors.append('<p>' + errMsg.message + '</p>');
@@ -39,61 +52,82 @@
 			} );
 		} else {
 			// $cardErrors.append('<p>' + errAll + '</p>');
-			addErr( '', err );
+			addErr( 'generic', err );
+		}
+	}
+
+	function changeAmount( value ) {
+		mw.log( 'amount changed: ' + value );
+		$( '#amount-on-btn' ).text( value );
+		remErr( 'amount' );
+	}
+
+	function validateAmount() {
+		var amount, parsedAmount;
+
+		amount = $suggestedAmount.is( ':checked' ) ? $suggestedAmount.filter( ':checked' ).val() : $amount.val();
+
+		parsedAmount = parseInt( amount ); // Make sure it's an integer
+		if ( !parsedAmount ) {
+			addErr( 'amount', 'יש לבחור או להקליד סכום' );
+		} else if ( parsedAmount < 5 ) {
+			addErr( 'amount', 'יש להקליד סכום שלם - לפחות 5 ש"ח' );
+		} else {
+			// Success!
+			changeAmount( parsedAmount );
+			return true;
 		}
 
-		$cardErrors.removeClass( 'Display-None' );
+		return false;
 	}
 
 	function chargeCCData() {
+		validateAmount();
+
 		fields.charge(
 			{
 				// expiry_month: $('#expiry').val().substring(0,2),
 				// expiry_year: $('#expiry').val().substring(3,7),
 				// eslint-disable-next-line camelcase
 				terminal_name: 'kolzchut',
-				amount: $amount.val(),
-				tokenize: true,
+				amount: $suggestedAmount.is( ':checked' ) ? $suggestedAmount.filter( ':checked' ).val() : $amount.val(),
+				// tokenize: true,
 				// eslint-disable-next-line camelcase
-				response_language: mw.config.get( 'wgContentLanguage' ) === 'he' ? 'hebrew' : 'english'
+				response_language: mw.config.get( 'wgContentLanguage' ) === 'he' ? 'hebrew' : 'english',
+				subscribe: $( '#subscribe' ).val(),
+				email: $( '#email' ).val()
 			},
 			function ( err, result ) {
-				var $btn = $( '.CardField-button' );
-
-				if ( result.errors || result.transaction_response.success === false ) {
-					btnChargeEnabled = true;
-					$btn.prop( 'disabled', false );
-					$btn.removeClass( 'disabled-CardField-button' );
-					handleErrors( result.errors || result.transaction_response.error );
+				if ( err.messages || result.errors || result.transaction_response.success === false ) {
+					toggleSubmitButton();
+					handleErrors( err.messages || result.errors || result.transaction_response.error );
 				} else {
-					$cardErrors.addClass( 'Display-None' );
 					mw.notify( 'Payment charge success!' + result, { autoHide: false } );
-
+					mw.log( 'Payment successful', result );
 				}
 			}
 		);
 	}
 
-	$( '#payment_form' ).on( 'submit', function ( e ) {
-		var $btn = $( '.CardField-button' );
-
+	$( '.donation-form' ).on( 'submit', function ( e ) {
 		e.preventDefault();
-		if ( btnChargeEnabled ) {
-			btnChargeEnabled = false;
-			$btn.prop( 'disabled', true );
-			$btn.addClass( 'disabled-CardField-button' );
-			chargeCCData();
-		}
+		toggleSubmitButton( false );
+		chargeCCData();
+	} );
+
+	$suggestedAmount.on( 'click', function () {
+		$amount.val( '' );
+		changeAmount( $suggestedAmount.filter( ':checked' ).val() );
+	} );
+
+	$amount.on( 'keypress', function () {
+		$suggestedAmount.prop( 'checked', false );
 	} );
 
 	$amount.on( 'change', function () {
-		if ( this.checkValidity() && this.value !== '' ) {
-			mw.log( 'amount changed: ' + $( this ).val() );
-			$( '#amount-on-btn' ).text( $( this ).val() );
-			$( '#errors_for_amount' ).text( '' );
-		} else {
-			$( '#errors_for_amount' ).text( 'יש להקליד סכום שלם מעל 5 ש"ח' );
-		}
+		// De-select the suggested amounts
+		$suggestedAmount.prop( 'checked', false );
+		validateAmount();
 	} );
 
 	fields = TzlaHostedFields.create( {
@@ -103,42 +137,42 @@
 				'background-color': 'transparent',
 				border: 'none',
 				display: 'block',
-				'font-family': 'Helvetica Neue, Helvetica, sans-serif',
+				'font-family': "Assistant, 'Helvetica Neue', Helvetica, Arial, sans-serif",
 				margin: '0',
-				padding: '0',
+				// padding: '0',
 				width: '100%',
-				'font-size': '16px',
-				'line-height': '1.2em',
-				height: '1.2em',
+				'font-size': '17px',
 				'-webkit-font-smoothing': 'antialiased',
 				'-moz-osx-font-smoothing': 'grayscale',
 				color: '#32325d',
 				position: 'absolute',
+				'line-height': '24px',
+				height: '24px',
 				top: '0'
 			},
 			'input:-ms-input-placeholder': {
 				opacity: '1',
-				color: '#aab7c4bd',
-				'text-align': 'right'
+				color: '#b9b9b9'
+				// 'text-align': 'right'
 			},
 			'input::placeholder': {
 				opacity: '1',
-				color: '#aab7c4bd',
-				'text-align': 'right'
+				color: '#b9b9b9'
+				// 'text-align': 'right'
 			},
 			'input::-webkit-input-placeholder': {
 				opacity: '1',
-				color: '#aab7c4bd',
-				'text-align': 'right'
+				color: '#b9b9b9'
+				// 'text-align': 'right'
 			},
 			'input::-moz-placeholder': {
 				opacity: '1',
-				color: '#aab7c4bd',
-				'text-align': 'right'
+				color: '#b9b9b9'
+				// 'text-align': 'right'
 			},
 
 			'.hosted-fields-invalid:not(:focus)': {
-				color: 'red'
+				color: '#f00'
 			}
 		},
 
@@ -146,25 +180,25 @@
 			// eslint-disable-next-line camelcase
 			credit_card_number: {
 				selector: '#credit_card_number',
-				placeholder: 'מספר כרטיס אשראי',
-				tabindex: 1
+				placeholder: 'xxxx xxxx xxxx xxxx'
+				// tabindex: 1
 			},
 			cvv: {
 				selector: '#cvv',
-				placeholder: 'CVV',
-				tabindex: 4
+				placeholder: 'xxx'
+				// tabindex: 4
 			},
 			// eslint-disable-next-line camelcase
 			card_holder_id_number: {
 				selector: '#card_holder_id_number',
-				placeholder: 'ת.ז',
-				tabindex: 2
+				placeholder: 'xxxxxxxxx'
+				// tabindex: 2
 			},
 			expiry: {
 				selector: '#expiry',
 				placeholder: 'MM/YY',
-				version: '1',
-				tabindex: 3
+				version: '1'
+				// tabindex: 3
 			}
 		}
 	} );
@@ -172,7 +206,7 @@
 	fields.onEvent( 'ready', function () {
 		mw.log( 'ready01---' );
 		setFocusOnCCnumber();
-		$( '.CardField-button' ).prop( 'disabled', false );
+		toggleSubmitButton( true );
 	} );
 
 	fields.onEvent( 'focus', function ( event ) {
@@ -290,14 +324,6 @@
 		$( '#card-img' ).attr( 'class', 'card-img-' + event.cardType );
 	} );
 
-	mw.donationForm = {
-		params: {
-			campaign: mw.util.getParamValue( 'campaign' ),
-			sum: parseInt( mw.util.getParamValue( 'sum' ) ),
-			freq: parseInt( mw.util.getParamValue( 'frequency' ) )
-		}
-	};
-
 	/*
 		recordGAEvent: function (type, optionalValue) {
 			if ( this.params.force ) {
@@ -347,4 +373,16 @@
 	mw.fundraisingBanner.recordDonation();
 	*/
 
+	var getErrors = function () {
+		return errors;
+	}
+
+	mw.donationForm = {
+		getErrors: getErrors,
+		params: {
+			campaign: mw.util.getParamValue( 'campaign' ),
+			sum: parseInt( mw.util.getParamValue( 'sum' ) ),
+			freq: parseInt( mw.util.getParamValue( 'frequency' ) )
+		}
+	};
 }() );
