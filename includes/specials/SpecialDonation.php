@@ -37,7 +37,7 @@ class SpecialDonation extends SpecialPage {
 		$templateParser = new TemplateParser( __DIR__ . '/templates' );
 
 		$html = $templateParser->processTemplate( 'donationForm', [
-			'sum' => 50,
+			'sum' => 191,
 			'freq' => 1,
 			'currency' => '₪',
 			'donation-freq-annually' => wfMessage( 'donation-freq-annually' )->text()
