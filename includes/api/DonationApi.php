@@ -14,7 +14,6 @@ class DonationApi extends ApiBase {
 
 		$paymentResult = $this->doPayment();
 
-
 		$errors = $this->doPayment();
 
 		if ( !empty( $errors ) ) {
@@ -23,7 +22,10 @@ class DonationApi extends ApiBase {
 		$this->getResult()->addValue( null, 'result', $outputResult );
 	}
 
-	// @todo flesh this out
+	/**
+	 * @todo flesh this out
+	 * @return bool
+	 */
 	public function validate() {
 		return true;
 	}
@@ -31,7 +33,6 @@ class DonationApi extends ApiBase {
 	public function doPayment() {
 		return true;
 	}
-
 
 	/**
 	 * @see ApiBase::getAllowedParams

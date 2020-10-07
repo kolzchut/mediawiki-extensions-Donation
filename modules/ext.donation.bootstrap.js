@@ -98,9 +98,12 @@
 				email: $( '#email' ).val()
 			},
 			function ( err, result ) {
-				if ( err.messages || result.errors || result.transaction_response.success === false ) {
+				if (
+					err.messages || result.errors || result.transaction_response.success === false
+				) {
 					toggleSubmitButton();
-					handleErrors( err.messages || result.errors || result.transaction_response.error );
+					handleErrors(
+						err.messages || result.errors || result.transaction_response.error );
 				} else {
 					mw.notify( 'Payment charge success!' + result, { autoHide: false } );
 					mw.log( 'Payment successful', result );
@@ -373,7 +376,7 @@
 	mw.fundraisingBanner.recordDonation();
 	*/
 
-	var getErrors = function () {
+	function getErrors() {
 		return errors;
 	}
 

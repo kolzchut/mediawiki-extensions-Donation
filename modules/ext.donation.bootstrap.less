@@ -61,6 +61,21 @@ label.label-tiny {
 	width: 100px;
 }
 
+#amount {
+	padding-right: 20px;
+
+	& + .currency {
+		position: absolute;
+		top: 0;
+		right: 5px;
+		color: @color-green;
+	}
+}
+
+.currency-sign {
+	font-size: small;
+}
+
 #card-img {
 	.background-image-svg-quick( 'images/cc/generic' );
 	background-size: contain;
@@ -92,7 +107,7 @@ label.label-tiny {
 .InputContainer:focus {
 	border-color: @color-green;
 	border-width: 2px;
-	outline: none;
+	outline: 0;
 }
 
 .Card-Errors {
@@ -108,57 +123,38 @@ label.label-tiny {
 
 .suggested-amount-box {
 	height: 26px;
-}
 
-.suggested-amount-box .box-input {
-	float: left;
-	opacity: 0;
-	width: 0;
-	height: 0;
-	display: none;
-	padding: 0;
-	margin: 0;
-	border: 0;
-}
+	.box-input {
+		float: left;
+		opacity: 0;
+		width: 0;
+		height: 0;
+		display: none;
+		padding: 0;
+		margin: 0;
+		border: 0;
+	}
 
-.suggested-amount-box .box-input:checked + .box-label {
-	background-color: @color-green;
-	color: #fff;
-}
+	.box-amount {
+		position: relative;
+		vertical-align: top;
+	}
 
-.suggested-amount-box .box-amount {
-	position: relative;
-	vertical-align: top;
-}
+	.box-label {
+		font-weight: 600;
+		height: 100%;
+		color: @color-green;
+		text-align: center;
+		border: 1.5px solid @color-green;
+		display: block;
+		transition: color 0.1s, background-color 0.1s, border-color 0.1s, font-weight 0.1s;
+		position: relative;
+		cursor: pointer;
+		margin: 0;
+	}
 
-#amount {
-	padding-right: 20px;
-}
-
-#amount + .currency {
-    position: absolute;
-	top: 0;
-    right: 5px;
-	color: @color-green;
-}
-
-.currency-sign {
-	font-size: small;
-}
-
-.suggested-amount-box .box-label {
-	font-weight: 600;
-	height: 100%;
-	color: @color-green;
-	text-align: center;
-	border: 1.5px solid @color-green;
-	display: block;
-	-webkit-transition: color 0.1s, background-color 0.1s, border-color 0.1s, font-weight 0.1s;
-	-moz-transition: color 0.1s, background-color 0.1s, border-color 0.1s, font-weight 0.1s;
-	-ms-transition: color 0.1s, background-color 0.1s, border-color 0.1s, font-weight 0.1s;
-	-o-transition: color 0.1s, background-color 0.1s, border-color 0.1s, font-weight 0.1s;
-	transition: color 0.1s, background-color 0.1s, border-color 0.1s, font-weight 0.1s;
-	position: relative;
-	cursor: pointer;
-	margin: 0;
+	.box-input:checked + .box-label {
+		background-color: @color-green;
+		color: #fff;
+	}
 }

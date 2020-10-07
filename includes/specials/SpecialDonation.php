@@ -34,7 +34,6 @@ class SpecialDonation extends SpecialPage {
 		$frequencyHuman = $this->msg( 'donation-freq-' . $frequencyReadable )->text();
 		$out->setPageTitle( $this->msg( 'donation-title' )->text() );
 
-
 		$templateParser = new TemplateParser( __DIR__ . '/templates' );
 
 		$html = $templateParser->processTemplate( 'donationForm', [
@@ -53,7 +52,6 @@ class SpecialDonation extends SpecialPage {
 			->plain()
 		);
 		*/
-
 	}
 
 }
