@@ -58,7 +58,7 @@
 
 	function changeAmount( value ) {
 		mw.log( 'amount changed: ' + value );
-		$( '#amount-on-btn' ).text( value );
+		$( '.btn-amount' ).text( value );
 		remErr( 'amount' );
 	}
 
