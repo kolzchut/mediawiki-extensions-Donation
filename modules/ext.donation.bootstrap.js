@@ -28,6 +28,11 @@
 		$btn.prop( 'disabled', !btnChargeEnabled );
 	}
 
+	function removeAllErrors() {
+		$cardErrors.empty();
+		errors = {};
+	}
+
 	function remErr( fld ) {
 		delete errors[ fld ];
 		$( '.' + prefixErrCls + fld ).remove();
@@ -105,8 +110,9 @@
 					handleErrors(
 						err.messages || result.errors || result.transaction_response.error );
 				} else {
+					removeAllErrors();
 					mw.notify( 'Payment charge success!' + result, { autoHide: false } );
-					mw.log( 'Payment successful', result );
+					mw.log( 'Payment successful' + result );
 				}
 			}
 		);
