@@ -12,10 +12,23 @@
 
 .donation-form-wrapper {
 	max-width: 360px;
+	position: relative; /* To absolutely position the loader */
+}
+
+.donation-loading {
+	position: absolute;
+	top: 20%;
+	left: 20%;
+	z-index: 1;
 }
 
 .donation-form {
 	position: relative;
+
+	&.disabled {
+		pointer-events: none;
+		opacity: 0.2;
+	}
 }
 
 .d-input-group {

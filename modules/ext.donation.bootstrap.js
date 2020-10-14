@@ -222,6 +222,8 @@
 
 		fields.onEvent( 'ready', function () {
 			mw.log( 'ready01---' );
+			$( '.donation-loading' ).hide();
+			$( '.donation-form' ).removeClass( 'disabled' );
 			setFocusOnCCnumber();
 			toggleSubmitButton( true );
 		} );
