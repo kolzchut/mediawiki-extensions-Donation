@@ -5,10 +5,18 @@
 	},
 	"donation": "תרומה לכל זכות",
 	"donation-desc": "עמוד תודה לתרומות",
-	"donation-thank-you": "$3, תודה שתרמת $1$2!",
 	"donation-title": "תרומה",
 
+	"donation-btn-text": "לתרומת <span class=\"currency-sign\">$2</span><span class=\"btn-amount\">$1</span>",
+	"donation-newsletter-subscribe": "מעוניין להירשם לניוזלטר",
+	"donation-email": "דואר אלקטרוני",
+	"donation-cc-holder-id": "מס' תעודת זהות",
+	"donation-cc-cvv": "CVV",
+	"donation-cc-expiry-date": "תוקף",
+	"donation-cc-number": "מס' כרטיס אשראי",
+	"donation-amount-other": "סכום אחר",
 	"donation-freq-once": "חד-פעמית",
 	"donation-freq-monthly": "מדי חודש",
-	"donation-freq-annually": "מדי שנה"
+	"donation-freq-annually": "מדי שנה",
+	"donation-thank-you": "$3, תודה שתרמת $1$2!"
 }

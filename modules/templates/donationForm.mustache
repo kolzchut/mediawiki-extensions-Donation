@@ -1,0 +1,63 @@
+<div class="donation-form-wrapper">
+	<form class="donation-form">
+		<ul class="Card-Errors"></ul>
+		<div class="d-input-group">
+			<div class="suggested-amount-boxes">
+				<div class="suggested-amount-box">
+					<input class="box-input suggested-amount mc_input" id="donation_suggested_amount_1" type="radio" value="360" name="suggested_amount">
+					<label class="box-label" for="donation_suggested_amount_1"><span class="box-item mc_el usd  len-2"><span class="currency-sign">{{currency}}</span><span class="box-amount mc_amount symbol_first">360</span></span></label>
+				</div>
+				<div class="suggested-amount-box">
+					<input class="box-input suggested-amount mc_input" id="donation_suggested_amount_2" type="radio" checked value="200" name="suggested_amount">
+					<label class="box-label" for="donation_suggested_amount_2"><span class="box-item mc_el usd  len-2"><span class="currency-sign">{{currency}}</span><span class="box-amount mc_amount symbol_first">200</span></span></label>
+				</div>
+				<div class="suggested-amount-box">
+					<input class="box-input suggested-amount mc_input" id="donation_suggested_amount_3" type="radio" value="100" name="suggested_amount">
+					<label class="box-label" for="donation_suggested_amount_3"><span class="box-item mc_el usd  len-3"><span class="currency-sign">{{currency}}</span><span class="box-amount mc_amount symbol_first">100</span></span></label>
+				</div>
+			</div>
+		</div>
+		<div class="d-input-group">
+			<label class="label-tiny sr-only" for="amount">{{donation-amount-other}}</label>
+			<input name="amount" id="amount" class="InputContainer" autocomplete="off" placeholder="{{donation-amount-other}}">
+			<span class="currency">₪</span>
+		</div>
+		<div class="d-input-group">
+			<label class="label-tiny" for=credit_card_number">{{donation-cc-number}}</label>
+			<div class="CardField-child">
+				<div id="card-img" aria-hidden="true"></div>
+				<span id="credit_card_number" class="InputContainer"></span>
+			</div>
+		</div>
+		<div class="d-input-group">
+			<span class="CardField-child">
+				<label class="label-tiny" for="expiry">{{donation-cc-expiry-date}}</label>
+				<span id="expiry" class="InputContainer"></span>
+			</span>
+
+			<span class="CardField-child">
+				<label class="label-tiny" for="cvv">{{donation-cc-cvv}}</label>
+				<span id="cvv" class="InputContainer"></span>
+			</span>
+
+			<span class="CardField-child">
+				<label class="label-tiny" for="card_holder_id_number">{{donation-cc-holder-id}}</label>
+				<span id="card_holder_id_number" class="InputContainer"></span>
+			</span>
+		</div>
+		<div class="d-input-group">
+			<label class="label-tiny" for="email">{{donation-email}}</label>
+			<input type="email" id="email" name="email" placeholder="name@example.com" class="InputContainer">
+		</div>
+		<div class="d-input-group">
+			<label for="subscribe">
+				<input type="checkbox" id="subscribe" name="subscribe" checked>&nbsp;{{donation-newsletter-subscribe}}
+			</label>
+		</div>
+		<div>
+			<button type="submit" disabled="" class="btn btn-secondary">
+				<span class="btn-text">{{{donation-btn-text}}}</span>
+			</button>
+		</div>
+	</form>
+</div>

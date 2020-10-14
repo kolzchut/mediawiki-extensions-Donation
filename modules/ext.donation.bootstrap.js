@@ -3,10 +3,10 @@
 
 	var fields,
 		errors = {},
-		$cardErrors = $( '.Card-Errors' ),
-		$amount = $( '#amount' ),
-		$suggestedAmount = $( 'input[name=suggested_amount]' ),
-		$btn = $( '.donation-form .btn' ),
+		$cardErrors,
+		$amount,
+		$suggestedAmount,
+		$btn,
 		btnChargeEnabled = true,
 		prefixErrCls = 'errcls-',
 		validCCN = false,
@@ -118,220 +118,270 @@
 		);
 	}
 
-	$( '.donation-form' ).on( 'submit', function ( e ) {
-		e.preventDefault();
-		toggleSubmitButton( false );
-		chargeCCData();
-	} );
+	function registerDomEvents( $form ) {
+		$cardErrors = $form.find( '.Card-Errors' );
+		$amount = $form.find( '#amount' );
+		$suggestedAmount = $form.find( 'input[name=suggested_amount]' );
+		$btn = $form.find( '.donation-form .btn' );
 
-	$suggestedAmount.on( 'click', function () {
-		$amount.val( '' );
-		changeAmount( $suggestedAmount.filter( ':checked' ).val() );
-	} );
+		$form.find( '.donation-form' ).on( 'submit', function ( e ) {
+			e.preventDefault();
+			toggleSubmitButton( false );
+			chargeCCData();
+		} );
 
-	$amount.on( 'keypress', function () {
-		$suggestedAmount.prop( 'checked', false );
-	} );
+		$suggestedAmount.on( 'click', function () {
+			$amount.val( '' );
+			changeAmount( $suggestedAmount.filter( ':checked' ).val() );
+		} );
 
-	$amount.on( 'change', function () {
-		// De-select the suggested amounts
-		$suggestedAmount.prop( 'checked', false );
-		validateAmount();
-	} );
+		$amount.on( 'keypress', function () {
+			$suggestedAmount.prop( 'checked', false );
+		} );
 
-	fields = TzlaHostedFields.create( {
-		sandbox: false,
-		styles: {
-			input: {
-				'background-color': 'transparent',
-				border: 'none',
-				display: 'block',
-				'font-family': "Assistant, 'Helvetica Neue', Helvetica, Arial, sans-serif",
-				margin: '0',
-				// padding: '0',
-				width: '100%',
-				'font-size': '17px',
-				'-webkit-font-smoothing': 'antialiased',
-				'-moz-osx-font-smoothing': 'grayscale',
-				color: '#32325d',
-				position: 'absolute',
-				'line-height': '24px',
-				height: '24px',
-				top: '0'
-			},
-			'input:-ms-input-placeholder': {
-				opacity: '1',
-				color: '#b9b9b9'
-				// 'text-align': 'right'
-			},
-			'input::placeholder': {
-				opacity: '1',
-				color: '#b9b9b9'
-				// 'text-align': 'right'
-			},
-			'input::-webkit-input-placeholder': {
-				opacity: '1',
-				color: '#b9b9b9'
-				// 'text-align': 'right'
-			},
-			'input::-moz-placeholder': {
-				opacity: '1',
-				color: '#b9b9b9'
-				// 'text-align': 'right'
+		$amount.on( 'change', function () {
+			// De-select the suggested amounts
+			$suggestedAmount.prop( 'checked', false );
+			validateAmount();
+		} );
+	}
+
+	function initTranzilaHostedFields() {
+		fields = TzlaHostedFields.create( {
+			sandbox: false,
+			styles: {
+				input: {
+					'background-color': 'transparent',
+					border: 'none',
+					display: 'block',
+					'font-family': "Assistant, 'Helvetica Neue', Helvetica, Arial, sans-serif",
+					margin: '0',
+					// padding: '0',
+					width: '100%',
+					'font-size': '17px',
+					'-webkit-font-smoothing': 'antialiased',
+					'-moz-osx-font-smoothing': 'grayscale',
+					color: '#32325d',
+					position: 'absolute',
+					'line-height': '24px',
+					height: '24px',
+					top: '0'
+				},
+				'input:-ms-input-placeholder': {
+					opacity: '1',
+					color: '#b9b9b9'
+					// 'text-align': 'right'
+				},
+				'input::placeholder': {
+					opacity: '1',
+					color: '#b9b9b9'
+					// 'text-align': 'right'
+				},
+				'input::-webkit-input-placeholder': {
+					opacity: '1',
+					color: '#b9b9b9'
+					// 'text-align': 'right'
+				},
+				'input::-moz-placeholder': {
+					opacity: '1',
+					color: '#b9b9b9'
+					// 'text-align': 'right'
+				},
+
+				'.hosted-fields-invalid:not(:focus)': {
+					color: '#f00'
+				}
 			},
 
-			'.hosted-fields-invalid:not(:focus)': {
-				color: '#f00'
+			fields: {
+				// eslint-disable-next-line camelcase
+				credit_card_number: {
+					selector: '#credit_card_number',
+					placeholder: 'xxxx xxxx xxxx xxxx'
+					// tabindex: 1
+				},
+				cvv: {
+					selector: '#cvv',
+					placeholder: 'xxx'
+					// tabindex: 4
+				},
+				// eslint-disable-next-line camelcase
+				card_holder_id_number: {
+					selector: '#card_holder_id_number',
+					placeholder: 'xxxxxxxxx'
+					// tabindex: 2
+				},
+				expiry: {
+					selector: '#expiry',
+					placeholder: 'MM/YY',
+					version: '1'
+					// tabindex: 3
+				}
 			}
-		},
+		} );
 
-		fields: {
-			// eslint-disable-next-line camelcase
-			credit_card_number: {
-				selector: '#credit_card_number',
-				placeholder: 'xxxx xxxx xxxx xxxx'
-				// tabindex: 1
-			},
-			cvv: {
-				selector: '#cvv',
-				placeholder: 'xxx'
-				// tabindex: 4
-			},
-			// eslint-disable-next-line camelcase
-			card_holder_id_number: {
-				selector: '#card_holder_id_number',
-				placeholder: 'xxxxxxxxx'
-				// tabindex: 2
-			},
-			expiry: {
-				selector: '#expiry',
-				placeholder: 'MM/YY',
-				version: '1'
-				// tabindex: 3
+		fields.onEvent( 'ready', function () {
+			mw.log( 'ready01---' );
+			setFocusOnCCnumber();
+			toggleSubmitButton( true );
+		} );
+
+		fields.onEvent( 'focus', function ( event ) {
+			var $focusedF = $( '#' + event.field );
+
+			mw.log( 'focus01--- ' + event.field );
+			$focusedF.addClass( 'focusedBorder' );
+		} );
+
+		fields.onEvent( 'validityChange', function ( event ) {
+			mw.log( 'ready01---validityChange-' );
+
+			switch ( event.field ) {
+				case 'credit_card_number':
+					validCCN = event.isValid;
+					break;
+				case 'cvv':
+					validCCV = event.isValid;
+					break;
+				case 'expiry':
+					validExp = event.isValid;
+					break;
+				case 'card_holder_id_number':
+					validCHID = event.isValid;
+					break;
 			}
-		}
+
+			// if (validCCN && validCCV && validExp && validCHID) {
+			// $cardErrors.addClass("Display-None");
+			// }
+		} );
+
+		fields.onEvent( 'empty', function ( event ) {
+			mw.log( 'ready01---empty-' );
+
+			switch ( event.field ) {
+				case 'credit_card_number':
+					emptyCCN = true;
+					break;
+				case 'cvv':
+					emptyCCV = true;
+					break;
+				case 'expiry':
+					emptyExp = true;
+					break;
+				case 'card_holder_id_number':
+					emptyCHID = true;
+					break;
+			}
+		} );
+
+		fields.onEvent( 'notEmpty', function ( event ) {
+			mw.log( 'ready01---empty-' );
+
+			switch ( event.field ) {
+				case 'credit_card_number':
+					emptyCCN = false;
+					break;
+				case 'cvv':
+					emptyCCV = false;
+					break;
+				case 'expiry':
+					emptyExp = false;
+					break;
+				case 'card_holder_id_number':
+					emptyCHID = false;
+					break;
+			}
+		} );
+
+		fields.onEvent( 'blur', function ( event ) {
+			var $unfocusedF = $( '#' + event.field );
+
+			mw.log( 'ready03---blur- ' + event.field );
+			$unfocusedF.removeClass( 'focusedBorder' );
+
+			switch ( event.field ) {
+				case 'credit_card_number':
+					if ( !validCCN && !emptyCCN ) {
+						addErr( event.field, 'מספר כרטיס אשראי לא תקין' );
+					} else {
+						remErr( event.field );
+					}
+					break;
+				case 'cvv':
+					if ( !validCCV && !emptyCCV ) {
+						addErr( event.field, 'CVV לא תקין' );
+					} else {
+						remErr( event.field );
+					}
+					break;
+				case 'expiry':
+					if ( !validExp && !emptyExp ) {
+						addErr( event.field, 'תאריך תום תוקף כרטיס לא תקין' );
+					} else {
+						remErr( event.field );
+					}
+					break;
+				case 'card_holder_id_number':
+					if ( !validCHID && !emptyCHID ) {
+						addErr( event.field, 'מספר תעודת זהות לקוח לא תקינה' );
+					} else {
+						remErr( event.field );
+					}
+					break;
+			}
+		} );
+
+		fields.onEvent( 'inputSubmitRequest', function ( event ) {
+			mw.log( 'ready04---keypress- ' + event.field );
+		} );
+
+		fields.onEvent( 'cardTypeChange', function ( event ) {
+			mw.log( 'ready01---cardTypeChange- ' + event.cardType );
+			$( '#card-img' ).attr( 'class', 'card-img-' + event.cardType );
+		} );
+
+	}
+
+	function getForm() {
+		var templateData,
+			$el,
+			defaultSum = 200, // Get this from config,
+			defaultCurrency = '₪'; // Get this from config
+
+		templateData = {
+			sum: defaultSum,
+			currency: defaultCurrency,
+			'donation-btn-text': mw.msg( 'donation-btn-text', defaultSum, defaultCurrency ),
+			'donation-newsletter-subscribe': mw.msg( 'donation-newsletter-subscribe' ),
+			'donation-email': mw.msg( 'donation-email' ),
+			'donation-cc-holder-id': mw.msg( 'donation-cc-holder-id' ),
+			'donation-cc-cvv': mw.msg( 'donation-cc-cvv' ),
+			'donation-cc-expiry-date': mw.msg( 'donation-cc-expiry-date' ),
+			'donation-cc-number': mw.msg( 'donation-cc-number' ),
+			'donation-amount-other': mw.msg( 'donation-amount-other' ),
+			'donation-freq-once': mw.msg( 'donation-freq-once' ),
+			'donation-freq-monthly': mw.msg( 'donation-freq-monthly' ),
+			'donation-freq-annually': mw.msg( 'donation-freq-annually' ),
+			'donation-thank-you': mw.msg( 'donation-thank-you' )
+		};
+
+		$el = mw.template.get( 'ext.donation.bootstrap', 'donationForm.mustache' )
+			.render( templateData );
+
+		return $el;
+	}
+
+	$.ajaxSetup( {
+		cache: true
 	} );
-
-	fields.onEvent( 'ready', function () {
-		mw.log( 'ready01---' );
-		setFocusOnCCnumber();
-		toggleSubmitButton( true );
-	} );
-
-	fields.onEvent( 'focus', function ( event ) {
-		var $focusedF = $( '#' + event.field );
-
-		mw.log( 'focus01--- ' + event.field );
-		$focusedF.addClass( 'focusedBorder' );
-	} );
-
-	fields.onEvent( 'validityChange', function ( event ) {
-		mw.log( 'ready01---validityChange-' );
-
-		switch ( event.field ) {
-			case 'credit_card_number':
-				validCCN = event.isValid;
-				break;
-			case 'cvv':
-				validCCV = event.isValid;
-				break;
-			case 'expiry':
-				validExp = event.isValid;
-				break;
-			case 'card_holder_id_number':
-				validCHID = event.isValid;
-				break;
-		}
-
-		// if (validCCN && validCCV && validExp && validCHID) {
-		// $cardErrors.addClass("Display-None");
-		// }
-	} );
-
-	fields.onEvent( 'empty', function ( event ) {
-		mw.log( 'ready01---empty-' );
-
-		switch ( event.field ) {
-			case 'credit_card_number':
-				emptyCCN = true;
-				break;
-			case 'cvv':
-				emptyCCV = true;
-				break;
-			case 'expiry':
-				emptyExp = true;
-				break;
-			case 'card_holder_id_number':
-				emptyCHID = true;
-				break;
-		}
-	} );
-
-	fields.onEvent( 'notEmpty', function ( event ) {
-		mw.log( 'ready01---empty-' );
-
-		switch ( event.field ) {
-			case 'credit_card_number':
-				emptyCCN = false;
-				break;
-			case 'cvv':
-				emptyCCV = false;
-				break;
-			case 'expiry':
-				emptyExp = false;
-				break;
-			case 'card_holder_id_number':
-				emptyCHID = false;
-				break;
-		}
-	} );
-
-	fields.onEvent( 'blur', function ( event ) {
-		var $unfocusedF = $( '#' + event.field );
-
-		mw.log( 'ready03---blur- ' + event.field );
-		$unfocusedF.removeClass( 'focusedBorder' );
-
-		switch ( event.field ) {
-			case 'credit_card_number':
-				if ( !validCCN && !emptyCCN ) {
-					addErr( event.field, 'מספר כרטיס אשראי לא תקין' );
-				} else {
-					remErr( event.field );
-				}
-				break;
-			case 'cvv':
-				if ( !validCCV && !emptyCCV ) {
-					addErr( event.field, 'CVV לא תקין' );
-				} else {
-					remErr( event.field );
-				}
-				break;
-			case 'expiry':
-				if ( !validExp && !emptyExp ) {
-					addErr( event.field, 'תאריך תום תוקף כרטיס לא תקין' );
-				} else {
-					remErr( event.field );
-				}
-				break;
-			case 'card_holder_id_number':
-				if ( !validCHID && !emptyCHID ) {
-					addErr( event.field, 'מספר תעודת זהות לקוח לא תקינה' );
-				} else {
-					remErr( event.field );
-				}
-				break;
-		}
-	} );
-
-	fields.onEvent( 'inputSubmitRequest', function ( event ) {
-		mw.log( 'ready04---keypress- ' + event.field );
-	} );
-
-	fields.onEvent( 'cardTypeChange', function ( event ) {
-		mw.log( 'ready01---cardTypeChange- ' + event.cardType );
-		$( '#card-img' ).attr( 'class', 'card-img-' + event.cardType );
-	} );
+	$.getScript( 'https://hf.tranzila.com/assets/js/thostedf.js' )
+		.done( function ( script, textStatus ) {
+			var $form = getForm();
+			registerDomEvents( $form );
+			$form.appendTo( '#bodyContent' );
+			initTranzilaHostedFields();
+		} );
 
 	/*
 		recordGAEvent: function (type, optionalValue) {

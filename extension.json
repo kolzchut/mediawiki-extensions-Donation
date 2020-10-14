@@ -29,9 +29,27 @@
 			"class": "HelenaResourceLoaderModule",
 			"styles": "ext.donation.bootstrap.less",
 			"scripts": "ext.donation.bootstrap.js",
-			"dependencies": [ "mediawiki.util" ],
-			"targets": [ "desktop", "mobile" ]
-
+			"dependencies": [
+				"mediawiki.util"
+			],
+			"targets": [ "desktop", "mobile" ],
+			"templates": {
+				"donationForm.mustache": "templates/donationForm.mustache"
+			},
+			"messages": [
+				"donation-btn-text",
+				"donation-newsletter-subscribe",
+				"donation-email",
+				"donation-cc-holder-id",
+				"donation-cc-cvv",
+				"donation-cc-expiry-date",
+				"donation-cc-number",
+				"donation-amount-other",
+				"donation-freq-once",
+				"donation-freq-monthly",
+				"donation-freq-annually",
+				"donation-thank-you"
+			]
 		}
 	},
 	"ResourceFileModulePaths": {
