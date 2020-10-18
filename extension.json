@@ -41,6 +41,7 @@
 				"donation-newsletter-subscribe",
 				"donation-email",
 				"donation-cc-holder-id",
+				"donation-cc-holder-name",
 				"donation-cc-cvv",
 				"donation-cc-expiry-date",
 				"donation-cc-number",

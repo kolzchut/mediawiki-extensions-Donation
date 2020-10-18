@@ -86,8 +86,22 @@
 		return false;
 	}
 
+	function validateEmail() {
+		var email = $( '#email' ).val(),
+			re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+
+		if ( re.test( email ) ) {
+			remErr( 'email' );
+			return true;
+		}
+
+		addErr( 'email', 'Invalid email address' );
+		return false;
+	}
+
 	function chargeCCData() {
 		validateAmount();
+		validateEmail();
 
 		fields.charge(
 			{
@@ -100,7 +114,8 @@
 				// eslint-disable-next-line camelcase
 				response_language: mw.config.get( 'wgContentLanguage' ) === 'he' ? 'hebrew' : 'english',
 				subscribe: $( '#subscribe' ).val(),
-				email: $( '#email' ).val()
+				email: $( '#email' ).val(),
+				name: $( '#name' ).val()
 			},
 			function ( err, result ) {
 				if (
@@ -358,6 +373,7 @@
 			'donation-newsletter-subscribe': mw.msg( 'donation-newsletter-subscribe' ),
 			'donation-email': mw.msg( 'donation-email' ),
 			'donation-cc-holder-id': mw.msg( 'donation-cc-holder-id' ),
+			'donation-cc-holder-name': mw.msg( 'donation-cc-holder-name' ),
 			'donation-cc-cvv': mw.msg( 'donation-cc-cvv' ),
 			'donation-cc-expiry-date': mw.msg( 'donation-cc-expiry-date' ),
 			'donation-cc-number': mw.msg( 'donation-cc-number' ),
