@@ -369,7 +369,7 @@
 			'donation-thank-you': mw.msg( 'donation-thank-you' )
 		};
 
-		$el = mw.template.get( 'ext.donation.bootstrap', 'donationForm.mustache' )
+		$el = mw.template.get( 'ext.donation.form', 'donationForm.mustache' )
 			.render( templateData );
 
 		return $el;

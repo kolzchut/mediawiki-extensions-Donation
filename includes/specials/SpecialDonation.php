@@ -14,7 +14,7 @@ class SpecialDonation extends SpecialPage {
 	public function execute( $sub ) {
 		$out = $this->getOutput();
 
-		$out->addModules( 'ext.donation.bootstrap' );
+		$out->addModules( 'ext.donation.special' );
 
 
 		$request = $this->getRequest();

@@ -25,10 +25,10 @@
 		"Donation": "SpecialDonation"
 	},
 	"ResourceModules": {
-		"ext.donation.bootstrap": {
+		"ext.donation.form": {
 			"class": "HelenaResourceLoaderModule",
-			"styles": "ext.donation.bootstrap.less",
-			"scripts": "ext.donation.bootstrap.js",
+			"styles": "ext.donation.form.less",
+			"scripts": "ext.donation.form.js",
 			"dependencies": [
 				"mediawiki.util"
 			],
@@ -51,6 +51,10 @@
 				"donation-freq-annually",
 				"donation-thank-you"
 			]
+		},
+		"ext.donation.special": {
+			"scripts": "ext.donation.special.js",
+			"dependencies": "ext.donation.form"
 		}
 	},
 	"ResourceFileModulePaths": {
