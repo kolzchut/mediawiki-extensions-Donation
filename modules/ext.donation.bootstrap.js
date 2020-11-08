@@ -213,24 +213,20 @@
 				credit_card_number: {
 					selector: '#credit_card_number',
 					placeholder: 'xxxx xxxx xxxx xxxx'
-					// tabindex: 1
 				},
 				cvv: {
 					selector: '#cvv',
 					placeholder: 'xxx'
-					// tabindex: 4
 				},
 				// eslint-disable-next-line camelcase
 				card_holder_id_number: {
 					selector: '#card_holder_id_number',
 					placeholder: 'xxxxxxxxx'
-					// tabindex: 2
 				},
 				expiry: {
 					selector: '#expiry',
 					placeholder: 'MM/YY',
 					version: '1'
-					// tabindex: 3
 				}
 			}
 		} );
@@ -239,20 +235,16 @@
 			mw.log( 'ready01---' );
 			$( '.donation-loading' ).hide();
 			$( '.donation-form' ).removeClass( 'disabled' );
-			setFocusOnCCnumber();
+			// setFocusOnCCnumber();
 			toggleSubmitButton( true );
 		} );
 
 		fields.onEvent( 'focus', function ( event ) {
 			var $focusedF = $( '#' + event.field );
-
-			mw.log( 'focus01--- ' + event.field );
 			$focusedF.addClass( 'focusedBorder' );
 		} );
 
 		fields.onEvent( 'validityChange', function ( event ) {
-			mw.log( 'ready01---validityChange-' );
-
 			switch ( event.field ) {
 				case 'credit_card_number':
 					validCCN = event.isValid;
@@ -274,8 +266,6 @@
 		} );
 
 		fields.onEvent( 'empty', function ( event ) {
-			mw.log( 'ready01---empty-' );
-
 			switch ( event.field ) {
 				case 'credit_card_number':
 					emptyCCN = true;
@@ -293,8 +283,6 @@
 		} );
 
 		fields.onEvent( 'notEmpty', function ( event ) {
-			mw.log( 'ready01---empty-' );
-
 			switch ( event.field ) {
 				case 'credit_card_number':
 					emptyCCN = false;
@@ -313,8 +301,6 @@
 
 		fields.onEvent( 'blur', function ( event ) {
 			var $unfocusedF = $( '#' + event.field );
-
-			mw.log( 'ready03---blur- ' + event.field );
 			$unfocusedF.removeClass( 'focusedBorder' );
 
 			switch ( event.field ) {
@@ -354,7 +340,6 @@
 		} );
 
 		fields.onEvent( 'cardTypeChange', function ( event ) {
-			mw.log( 'ready01---cardTypeChange- ' + event.cardType );
 			$( '#card-img' ).attr( 'class', 'card-img-' + event.cardType );
 		} );
 
@@ -390,17 +375,19 @@
 		return $el;
 	}
 
-	$.ajaxSetup( {
-		cache: true
-	} );
-	$.getScript( 'https://hf.tranzila.com/assets/js/thostedf.js' )
-		.done( function ( script, textStatus ) {
-			var $form = getForm();
-			registerDomEvents( $form );
-			$form.appendTo( '#bodyContent' );
-			initTranzilaHostedFields();
+	function init( $elem ) {
+		$elem = $elem || $( '#bodyContent' );
+		$.ajaxSetup( {
+			cache: true
 		} );
-
+		$.getScript( 'https://hf.tranzila.com/assets/js/thostedf.js' )
+			.done( function ( script, textStatus ) {
+				var $form = getForm();
+				registerDomEvents( $form );
+				$elem.append( $form );
+				initTranzilaHostedFields();
+			} );
+	}
 	/*
 		recordGAEvent: function (type, optionalValue) {
 			if ( this.params.force ) {
@@ -455,6 +442,7 @@
 	}
 
 	mw.donationForm = {
+		init: init,
 		getErrors: getErrors,
 		params: {
 			campaign: mw.util.getParamValue( 'campaign' ),
