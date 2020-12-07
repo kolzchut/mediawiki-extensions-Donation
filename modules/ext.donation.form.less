@@ -135,15 +135,19 @@ label.label-tiny {
 	column-gap: 10px;
 }
 
+.donation-thanks a {
+	text-decoration: underline;
+}
+
 .suggested-amount-box {
 	height: 26px;
 
+	// Do not use "display: none" here! Prevents focus and accessibity
 	.box-input {
-		float: left;
+		position: fixed;
 		opacity: 0;
 		width: 0;
 		height: 0;
-		display: none;
 		padding: 0;
 		margin: 0;
 		border: 0;
@@ -171,6 +175,11 @@ label.label-tiny {
 		background-color: @color-green;
 		color: #fff;
 	}
+}
+
+.required-indicator:before {
+	color: #f00;
+	content: ' *';
 }
 
 .btn-amount-wrapper {

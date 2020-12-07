@@ -6,8 +6,20 @@
 	"donation": "Name of special page",
 	"donation-desc": "{{desc|name=Donation|url=https://github.com/kolzchut/mediawiki-extensions-Donation}}",
 	"donation-title": "Title of special page",
-	"donation-thank-you": "Donation thank you message",
+	"donation-modal-title": "Title for the donation pop up",
+	"donation-modal-close-btn": "Close button text",
+	"donation-input-required": "Text marking a required field",
+	"donation-btn-text": "Submit button text. $1 is the amount, $2 is the currency sign. Please keep the HTML tags",
+	"donation-newsletter-subscribe": "Newsletter subscribe confirmation checkbox",
+	"donation-email": "Email field",
+	"donation-cc-holder-id": "National ID number field",
+	"donation-cc-holder-name": "Full name field",
+	"donation-cc-cvv": "Credit card's CVV field",
+	"donation-cc-expiry-date": "Credit card's expiry field",
+	"donation-cc-number": "Credit card number field",
+	"donation-amount-other": "Other amount field",
 	"donation-freq-once": "Donation frequency option",
 	"donation-freq-monthly": "Donation frequency option",
-	"donation-freq-annually": "Donation frequency option"
+	"donation-freq-annually": "Donation frequency option",
+	"donation-thank-you": "Donation thank you message. Can use basic wikitext and HTML, but not br tags"
 }

@@ -30,7 +30,8 @@
 			"styles": "ext.donation.form.less",
 			"scripts": "ext.donation.form.js",
 			"dependencies": [
-				"mediawiki.util"
+				"mediawiki.util",
+				"mediawiki.jqueryMsg"
 			],
 			"targets": [ "desktop", "mobile" ],
 			"templates": {
@@ -49,12 +50,21 @@
 				"donation-freq-once",
 				"donation-freq-monthly",
 				"donation-freq-annually",
-				"donation-thank-you"
+				"donation-thank-you",
+				"donation-input-required"
 			]
 		},
 		"ext.donation.special": {
 			"scripts": "ext.donation.special.js",
 			"dependencies": "ext.donation.form"
+		},
+		"ext.donation.modal": {
+			"scripts": "ext.donation.modal.js",
+			"styles": "ext.donation.modal.less",
+			"messages": [
+				"donation-modal-title",
+				"donation-modal-close-btn"
+			]
 		}
 	},
 	"ResourceFileModulePaths": {

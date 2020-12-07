@@ -1,5 +1,5 @@
 ( function () {
 	'use strict';
 
-	mw.donationForm.init();
+	mw.donation.form.init();
 }() );

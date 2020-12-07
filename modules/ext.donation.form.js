@@ -1,7 +1,8 @@
 ( function () {
 	'use strict';
 
-	var fields,
+	var $form,
+		fields,
 		errors = {},
 		$cardErrors,
 		$amount,
@@ -18,13 +19,12 @@
 		emptyExp = true,
 		emptyCHID = true;
 
-	function setFocusOnCCnumber() {
-		var iframeCC = $( '#tranzi\\.credit_card_number' )[ 0 ];
-		iframeCC.contentWindow.focus();
+	function setFocusOnFirstField() {
+		$( '.donation-form' ).find( 'input' ).first().trigger( 'focus' );
 	}
 
 	function toggleSubmitButton( forcedValue ) {
-		btnChargeEnabled = forcedValue || !btnChargeEnabled;
+		btnChargeEnabled = forcedValue !== 'undefined' ? forcedValue : !btnChargeEnabled;
 		$btn.prop( 'disabled', !btnChargeEnabled );
 	}
 
@@ -46,7 +46,7 @@
 		remErr( fld );
 		errors[ fld ] = err;
 		$cardErrors.attr( 'role', 'alert' ).prepend( '<li class="' + prefixErrCls + fld + '">' + err + '</li>' );
-		toggleSubmitButton( false );
+		// toggleSubmitButton( false );
 	}
 
 	function handleErrors( err ) {
@@ -63,6 +63,11 @@
 
 	function changeAmount( value ) {
 		mw.log( 'amount changed: ' + value );
+		mw.track( 'kz.donation', {
+			action: 'amount-changed',
+			label: value,
+			value: value
+		} );
 		$( '.btn-amount' ).text( value );
 		remErr( 'amount' );
 	}
@@ -88,6 +93,7 @@
 
 	function validateEmail() {
 		var email = $( '#email' ).val(),
+			// eslint-disable-next-line no-useless-escape
 			re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 
 		if ( re.test( email ) ) {
@@ -99,9 +105,46 @@
 		return false;
 	}
 
+	function getCurrencySignFromInt( code ) {
+		switch ( code ) {
+			case 1: return '₪';
+			default: return null;
+		}
+	}
+
+	function onSuccess( result ) {
+		var amount, $thanksMsg;
+
+		amount = result.transaction_response.amount;
+
+		mw.track( 'kz.donation', {
+			action: 'success',
+			label: '', // Pass an empty label, or GTM will pick up the previous one
+			value: amount
+		} );
+
+		$thanksMsg = $( '<div>' ).attr( 'class', 'donation-thanks' ).append( mw.message(
+			'donation-thank-you',
+			result.transaction_response.user_form_data.name,
+			amount,
+			getCurrencySignFromInt( result.transaction_response.currency_code )
+		).parseDom() );
+
+		removeAllErrors();
+		$form.hide();
+
+		$form.before( $thanksMsg );
+		mw.log( 'Payment successful' + result );
+	}
+
 	function chargeCCData() {
+		var $statusIcon = $( '<i>' ).attr( 'class', 'fa fa-spinner fa-spin' );
+
 		validateAmount();
 		validateEmail();
+
+		$btn.append( $statusIcon );
+		toggleSubmitButton();
 
 		fields.charge(
 			{
@@ -118,6 +161,12 @@
 				name: $( '#name' ).val()
 			},
 			function ( err, result ) {
+				mw.track( 'kz.donation', {
+					action: 'charge-failed',
+					label: err.messages || result.errors || result.transaction_response.error
+				} );
+
+				$statusIcon.hide();
 				if (
 					err.messages || result.errors || result.transaction_response.success === false
 				) {
@@ -125,15 +174,13 @@
 					handleErrors(
 						err.messages || result.errors || result.transaction_response.error );
 				} else {
-					removeAllErrors();
-					mw.notify( 'Payment charge success!' + result, { autoHide: false } );
-					mw.log( 'Payment successful' + result );
+					onSuccess( result );
 				}
 			}
 		);
 	}
 
-	function registerDomEvents( $form ) {
+	function registerDomEvents() {
 		$cardErrors = $form.find( '.Card-Errors' );
 		$amount = $form.find( '#amount' );
 		$suggestedAmount = $form.find( 'input[name=suggested_amount]' );
@@ -232,7 +279,11 @@
 		} );
 
 		fields.onEvent( 'ready', function () {
-			mw.log( 'ready01---' );
+			mw.log( 'ready' );
+			mw.track( 'kz.donation', {
+				action: 'loaded',
+				label: ''
+			} );
 			$( '.donation-loading' ).hide();
 			$( '.donation-form' ).removeClass( 'disabled' );
 			// setFocusOnCCnumber();
@@ -354,6 +405,7 @@
 		templateData = {
 			sum: defaultSum,
 			currency: defaultCurrency,
+			'donation-required-indicator': mw.msg( 'donation-required-indicator' ),
 			'donation-btn-text': mw.msg( 'donation-btn-text', defaultSum, defaultCurrency ),
 			'donation-newsletter-subscribe': mw.msg( 'donation-newsletter-subscribe' ),
 			'donation-email': mw.msg( 'donation-email' ),
@@ -365,14 +417,14 @@
 			'donation-amount-other': mw.msg( 'donation-amount-other' ),
 			'donation-freq-once': mw.msg( 'donation-freq-once' ),
 			'donation-freq-monthly': mw.msg( 'donation-freq-monthly' ),
-			'donation-freq-annually': mw.msg( 'donation-freq-annually' ),
-			'donation-thank-you': mw.msg( 'donation-thank-you' )
+			'donation-freq-annually': mw.msg( 'donation-freq-annually' )
 		};
 
 		$el = mw.template.get( 'ext.donation.form', 'donationForm.mustache' )
 			.render( templateData );
 
-		return $el;
+		// For some reason, this returns an extra text node, so we return the 1st node
+		return $el.first();
 	}
 
 	function init( $elem ) {
@@ -381,11 +433,12 @@
 			cache: true
 		} );
 		$.getScript( 'https://hf.tranzila.com/assets/js/thostedf.js' )
-			.done( function ( script, textStatus ) {
-				var $form = getForm();
-				registerDomEvents( $form );
+			.done( function () {
+				$form = getForm();
+				registerDomEvents();
 				$elem.append( $form );
 				initTranzilaHostedFields();
+				setFocusOnFirstField();
 			} );
 	}
 	/*
@@ -441,9 +494,12 @@
 		return errors;
 	}
 
-	mw.donationForm = {
+	mw.donation = mw.donation || {};
+
+	mw.donation.form = {
 		init: init,
 		getErrors: getErrors,
+		onSuccess: onSuccess,
 		params: {
 			campaign: mw.util.getParamValue( 'campaign' ),
 			sum: parseInt( mw.util.getParamValue( 'sum' ) ),
