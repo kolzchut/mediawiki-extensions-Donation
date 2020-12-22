@@ -112,10 +112,54 @@
 		}
 	}
 
+	function subscribeToNewsletter( email, name ) {
+		var data,
+			deferred = $.Deferred(),
+			subscriptionUrl = 'https://kolzchut.us6.list-manage.com/subscribe/post-json?u=2fa0d96799c87ec50bb4d8a6d&id=f1b888cca2&c=?';
+
+		data = {
+			name: name,
+			EMAIL: email,
+			'group[9113][1]': 1
+		};
+
+		$.getJSON( subscriptionUrl, data ).then( function ( response ) {
+			var msg;
+			if ( response.result !== 'success' ) {
+				if ( response.msg && response.msg.match( /already subscribed|כבר מנוי/i ) ) {
+					msg = mw.msg( 'donation-newsletter-sub-already-subscribed' );
+				} else {
+					msg = mw.msg( 'donation-newsletter-sub-fail' );;
+				}
+				deferred.reject( response.result, msg );
+				mw.track( 'kz.donation', {
+					action: 'newsletter-subscription-failed',
+					label: msg,
+					value: ''
+				} );
+			} else {
+				msg = mw.msg( 'donation-newsletter-sub-success' );
+				deferred.resolve( response.result, msg );
+
+				mw.track( 'kz.donation', {
+					action: 'newsletter-subscribed',
+					label: '',
+					value: ''
+				} );
+			}
+		} );
+
+		return deferred.promise();
+	}
+
 	function onSuccess( result ) {
-		var amount, $thanksMsg;
+		var amount, name, email, $thanksMsg;
+
+		mw.log( 'Payment successful' + result );
 
 		amount = result.transaction_response.amount;
+		email = result.transaction_response.user_form_data.email.trim();
+		name = result.transaction_response.user_form_data.name.trim();
 
 		mw.track( 'kz.donation', {
 			action: 'success',
@@ -125,7 +169,7 @@
 
 		$thanksMsg = $( '<div>' ).attr( 'class', 'donation-thanks' ).append( mw.message(
 			'donation-thank-you',
-			result.transaction_response.user_form_data.name,
+			name,
 			amount,
 			getCurrencySignFromInt( result.transaction_response.currency_code )
 		).parseDom() );
@@ -133,8 +177,13 @@
 		removeAllErrors();
 		$form.hide();
 
-		$form.before( $thanksMsg );
-		mw.log( 'Payment successful' + result );
+		subscribeToNewsletter(
+			email,
+			name
+		).always( function ( status, msg ) {
+			$thanksMsg.append( msg );
+			$form.before( $thanksMsg );
+		} );
 	}
 
 	function chargeCCData() {
@@ -161,15 +210,14 @@
 				name: $( '#name' ).val()
 			},
 			function ( err, result ) {
-				mw.track( 'kz.donation', {
-					action: 'charge-failed',
-					label: err.messages || result.errors || result.transaction_response.error
-				} );
-
 				$statusIcon.hide();
 				if (
 					err.messages || result.errors || result.transaction_response.success === false
 				) {
+					mw.track( 'kz.donation', {
+						action: 'charge-failed',
+						label: err.messages || result.errors || result.transaction_response.error
+					} );
 					toggleSubmitButton();
 					handleErrors(
 						err.messages || result.errors || result.transaction_response.error );

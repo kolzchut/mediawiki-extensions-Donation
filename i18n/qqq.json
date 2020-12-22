@@ -21,5 +21,8 @@
 	"donation-freq-once": "Donation frequency option",
 	"donation-freq-monthly": "Donation frequency option",
 	"donation-freq-annually": "Donation frequency option",
-	"donation-thank-you": "Donation thank you message. Can use basic wikitext and HTML, but not br tags"
+	"donation-thank-you": "Donation thank you message. Can use basic wikitext and HTML, but not br tags. {{Doc-jqueryMsg}}",
+	"donation-newsletter-sub-fail": "Newsletter subscription failed",
+	"donation-newsletter-sub-already-subscribed": "Newsletter subscription failed - already subscribed",
+	"donation-newsletter-sub-success": "Newsletter subscription succeeded"
 }
