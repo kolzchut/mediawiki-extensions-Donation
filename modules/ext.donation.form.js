@@ -115,7 +115,7 @@
 	function subscribeToNewsletter( email, name ) {
 		var data,
 			deferred = $.Deferred(),
-			subscriptionUrl = 'https://kolzchut.us6.list-manage.com/subscribe/post-json?u=2fa0d96799c87ec50bb4d8a6d&id=f1b888cca2&c=?';
+			subscriptionUrl = mw.config.get( 'wgDonationNewsletterSubscriptionUrl' );
 
 		data = {
 			name: name,

@@ -1,5 +1,9 @@
 <?php
 
+namespace MediaWiki\WikiRights\Donation;
+
+use SpecialPage;
+
 class SpecialDonation extends SpecialPage {
 
 	public function __construct() {

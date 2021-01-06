@@ -41,31 +41,21 @@ class DonationApi extends ApiBase {
 	 */
 	public function getAllowedParams() {
 		return [
-			'amount' => $this->defineParam( true, 'integer' ),
-			'currency' => $this->defineParam( false ),
-			'first_name' => $this->defineParam( false ),
-			'last_name' => $this->defineParam( false ),
-			'email' => $this->defineParam( false ),
-			'card_num' => $this->defineParam( false ),
-			'card_token' => $this->defineParam( true, 'integer' ),
-			'card_type' => $this->defineParam( false ),
-			'language' => $this->defineParam( false ),
-			'utm_source' => $this->defineParam( false ),
-			'utm_campaign' => $this->defineParam( false ),
-			'utm_medium' => $this->defineParam( false ),
-			'referrer' => $this->defineParam( false ),
-			'recurring' => $this->defineParam( false ),
-			'opt_in' => $this->defineParam( false ),
+			'amount' => [ ApiBase::PARAM_TYPE => 'integer', ApiBase::PARAM_REQUIRED => true ],
+			'currency' => [ ApiBase::PARAM_TYPE => [ 'ILS', 'USD' ], [ ApiBase::PARAM_DFLT => 'ILS' ], ],
+			'name' => [ ApiBase::PARAM_TYPE => 'string' ],
+			'email' => [ ApiBase::PARAM_TYPE => 'string' ],
+			'card_num' => [ ApiBase::PARAM_TYPE => 'string' ],
+			'card_token' => [ ApiBase::PARAM_TYPE => 'integer', ApiBase::PARAM_REQUIRED => true ],
+			'card_type' => [ ApiBase::PARAM_TYPE => 'string' ],
+			'language' => [ ApiBase::PARAM_TYPE => [ 'he', 'ar', 'en' ], ApiBase::PARAM_DFLT => 'he' ],
+			'utm_source' => [ ApiBase::PARAM_TYPE => 'string' ],
+			'utm_campaign' => [ ApiBase::PARAM_TYPE => 'string' ],
+			'utm_medium' => [ ApiBase::PARAM_TYPE => 'string' ],
+			'referrer' => [ ApiBase::PARAM_TYPE => 'string' ],
+			'recurring' => [ ApiBase::PARAM_TYPE => 'boolean', ApiBase::PARAM_DFLT => false ],
+			'newsletter_opt_in' => [ ApiBase::PARAM_TYPE => 'boolean', ApiBase::PARAM_DFLT => false ],
 		];
-	}
-
-	private function defineParam( $required = false, $type = 'string' ) {
-		if ( $required ) {
-			$param = [ ApiBase::PARAM_TYPE => $type, ApiBase::PARAM_REQUIRED => true ];
-		} else {
-			$param = [ ApiBase::PARAM_TYPE => $type ];
-		}
-		return $param;
 	}
 
 	/**
