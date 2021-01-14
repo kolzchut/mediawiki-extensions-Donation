@@ -184,9 +184,10 @@
 				email,
 				name
 			).always( function ( status, msg ) {
-				$thanksMsg.append( msg );
-				$form.before( $thanksMsg );
+				$thanksMsg.append( msg ).insertBefore( $form );
 			} );
+		} else {
+			$thanksMsg.insertBefore( $form );
 		}
 	}
 
