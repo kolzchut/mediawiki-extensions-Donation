@@ -50,15 +50,17 @@ label.label-tiny {
 
 // Tooltip-like behavior for mobile
 // (let's pretend I actually understand why this works only on mobile)
-label > i:focus:after {
+label > i:hover:after {
 	content: attr(title);
 	position: absolute;
-	top: 90%;
+	top: 0;
+	margin-left: 3px;
 	color: #000;
 	background-color: #fff;
 	border: 1px solid;
-	width: fit-content;
+	width: max-content;
 	padding: 3px;
+	z-index: 1;
 }
 
 .CardField-child {
