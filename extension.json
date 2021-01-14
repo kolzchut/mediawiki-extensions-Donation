@@ -60,6 +60,7 @@
 				"donation-cc-holder-id",
 				"donation-cc-holder-name",
 				"donation-cc-cvv",
+				"donation-cc-cvv-tooltip",
 				"donation-cc-expiry-date",
 				"donation-cc-number",
 				"donation-amount-other",

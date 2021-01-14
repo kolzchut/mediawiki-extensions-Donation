@@ -464,6 +464,7 @@
 			'donation-cc-holder-id': mw.msg( 'donation-cc-holder-id' ),
 			'donation-cc-holder-name': mw.msg( 'donation-cc-holder-name' ),
 			'donation-cc-cvv': mw.msg( 'donation-cc-cvv' ),
+			'donation-cc-cvv-tooltip': mw.msg( 'donation-cc-cvv-tooltip' ),
 			'donation-cc-expiry-date': mw.msg( 'donation-cc-expiry-date' ),
 			'donation-cc-number': mw.msg( 'donation-cc-number' ),
 			'donation-amount-other': mw.msg( 'donation-amount-other' ),

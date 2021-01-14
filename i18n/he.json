@@ -15,6 +15,7 @@
 	"donation-cc-holder-id": "מס' תעודת זהות",
 	"donation-cc-holder-name": "שם מלא",
 	"donation-cc-cvv": "CVV",
+	"donation-cc-cvv-tooltip": "שלוש הספרות בגב הכרטיס",
 	"donation-cc-expiry-date": "תוקף",
 	"donation-cc-number": "מס' כרטיס אשראי",
 	"donation-amount-other": "סכום אחר",

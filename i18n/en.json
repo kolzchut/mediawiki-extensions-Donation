@@ -15,6 +15,7 @@
 	"donation-cc-holder-id": "ID number",
 	"donation-cc-holder-name": "Name",
 	"donation-cc-cvv": "CVV",
+	"donation-cc-cvv-tooltip": "3 digits on the back of the card",
 	"donation-cc-expiry-date": "Expiry",
 	"donation-cc-number": "Credit card number",
 	"donation-amount-other": "Other amount",
