@@ -187,6 +187,11 @@
 				$thanksMsg.append( msg ).insertBefore( $form );
 			} );
 		} else {
+			mw.track( 'kz.donation', {
+				action: 'newsletter-declined',
+				label: '', // Pass an empty label, or GTM will pick up the previous one
+				value: ''
+			} );
 			$thanksMsg.insertBefore( $form );
 		}
 	}
