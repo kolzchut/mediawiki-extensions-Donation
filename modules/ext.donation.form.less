@@ -48,6 +48,19 @@ label.label-tiny {
 	margin-bottom: 0;
 }
 
+// Tooltip-like behavior for mobile
+// (let's pretend I actually understand why this works only on mobile)
+label > i:focus:after {
+	content: attr(title);
+	position: absolute;
+	top: 90%;
+	color: #000;
+	background-color: #fff;
+	border: 1px solid;
+	width: fit-content;
+	padding: 3px;
+}
+
 .CardField-child {
 	display: inline-block;
 	position: relative; // Necessary for #card-img, but put here for simplicity
