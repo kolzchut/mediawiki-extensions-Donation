@@ -23,5 +23,6 @@
 	"donation-freq-annually": "annually",
 	"donation-newsletter-sub-fail": ".Sorry, but the newsletter subscription failed for an unknown reason. Please try subscribing later using the site's form.",
 	"donation-newsletter-sub-already-subscribed": "You already previously subscribed - that's great!",
-	"donation-newsletter-sub-success": "You are now subscribed to our newsletter. It's great to have you!"
+	"donation-newsletter-sub-success": "You are now subscribed to our newsletter. It's great to have you!",
+	"donation-loading": "Just a second, loading..."
 }

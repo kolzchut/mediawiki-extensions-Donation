@@ -53,6 +53,9 @@
 			"messages": [
 				"donation-btn-text",
 				"donation-newsletter-subscribe",
+				"donation-newsletter-sub-success",
+				"donation-newsletter-sub-fail",
+				"donation-newsletter-sub-already-subscribed",
 				"donation-email",
 				"donation-cc-holder-id",
 				"donation-cc-holder-name",
@@ -64,7 +67,8 @@
 				"donation-freq-monthly",
 				"donation-freq-annually",
 				"donation-thank-you",
-				"donation-input-required"
+				"donation-input-required",
+				"donation-loading"
 			]
 		},
 		"ext.donation.special": {

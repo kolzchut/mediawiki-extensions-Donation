@@ -129,7 +129,7 @@
 				if ( response.msg && response.msg.match( /already subscribed|כבר מנוי/i ) ) {
 					msg = mw.msg( 'donation-newsletter-sub-already-subscribed' );
 				} else {
-					msg = mw.msg( 'donation-newsletter-sub-fail' );;
+					msg = mw.msg( 'donation-newsletter-sub-fail' );
 				}
 				deferred.reject( response.result, msg );
 				mw.track( 'kz.donation', {
@@ -465,7 +465,8 @@
 			'donation-amount-other': mw.msg( 'donation-amount-other' ),
 			'donation-freq-once': mw.msg( 'donation-freq-once' ),
 			'donation-freq-monthly': mw.msg( 'donation-freq-monthly' ),
-			'donation-freq-annually': mw.msg( 'donation-freq-annually' )
+			'donation-freq-annually': mw.msg( 'donation-freq-annually' ),
+			'donation-loading': mw.msg( 'donation-loading' )
 		};
 
 		$el = mw.template.get( 'ext.donation.form', 'donationForm.mustache' )
