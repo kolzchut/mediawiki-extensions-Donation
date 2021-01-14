@@ -153,13 +153,14 @@
 	}
 
 	function onSuccess( result ) {
-		var amount, name, email, $thanksMsg;
+		var amount, name, email, subscribe, $thanksMsg;
 
 		mw.log( 'Payment successful' + result );
 
 		amount = result.transaction_response.amount;
 		email = result.transaction_response.user_form_data.email.trim();
 		name = result.transaction_response.user_form_data.name.trim();
+		subscribe = result.transaction_response.user_form_data.subscribe;
 
 		mw.track( 'kz.donation', {
 			action: 'success',
@@ -177,13 +178,16 @@
 		removeAllErrors();
 		$form.hide();
 
-		subscribeToNewsletter(
-			email,
-			name
-		).always( function ( status, msg ) {
-			$thanksMsg.append( msg );
-			$form.before( $thanksMsg );
-		} );
+		// It seems tranzilla returns our boolean as a string, so check for 'true'
+		if ( subscribe === 'true' ) {
+			subscribeToNewsletter(
+				email,
+				name
+			).always( function ( status, msg ) {
+				$thanksMsg.append( msg );
+				$form.before( $thanksMsg );
+			} );
+		}
 	}
 
 	function chargeCCData() {
@@ -205,7 +209,7 @@
 				// tokenize: true,
 				// eslint-disable-next-line camelcase
 				response_language: mw.config.get( 'wgContentLanguage' ) === 'he' ? 'hebrew' : 'english',
-				subscribe: $( '#subscribe' ).val(),
+				subscribe: $( '#subscribe' ).is( ':checked' ),
 				email: $( '#email' ).val(),
 				name: $( '#name' ).val()
 			},
