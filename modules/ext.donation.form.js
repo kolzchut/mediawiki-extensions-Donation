@@ -210,7 +210,7 @@
 				// expiry_month: $('#expiry').val().substring(0,2),
 				// expiry_year: $('#expiry').val().substring(3,7),
 				// eslint-disable-next-line camelcase
-				terminal_name: 'kolzchut',
+				terminal_name: mw.config.get( 'wgDonationTranzilaTerminalName' ),
 				amount: $suggestedAmount.is( ':checked' ) ? $suggestedAmount.filter( ':checked' ).val() : $amount.val(),
 				// tokenize: true,
 				// eslint-disable-next-line camelcase
