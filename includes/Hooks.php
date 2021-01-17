@@ -12,7 +12,7 @@ use MediaWiki\MediaWikiServices;
 class Hooks {
 	const EXTENSION_NAME = 'Donation';
 
-	private static Config $config;
+	private static $config;
 
 	/**
 	 * ResourceLoaderGetConfigVars hook handler
@@ -23,7 +23,7 @@ class Hooks {
 	public static function onResourceLoaderGetConfigVars( &$vars ) {
 		$vars += [
 			'wgDonationNewsletterSubscriptionUrl' => self::getConfigVar( 'NewsletterSubscriptionUrl' ),
-			'wgDonationTranzilaTerminalName' => self::getConfigVar( 'NewsletterSubscriptionUrl' )
+			'wgDonationTranzilaTerminalName' => self::getConfigVar( 'TranzilaTerminalName' )
 		];
 
 	}
@@ -31,9 +31,9 @@ class Hooks {
 	/**
 	 * @param string $name
 	 *
-	 * @return Config
+	 * @return Config|null
 	 */
-	protected static function getConfigVar( $name ) {
+	protected static function getConfigVar( string $name ) {
 		if ( !isset( self::$config ) ) {
 			self::$config = MediaWikiServices::getInstance()
 			                                 ->getConfigFactory()
@@ -41,7 +41,7 @@ class Hooks {
 		}
 		try {
 			return self::$config->get( self::EXTENSION_NAME . $name );
-		} catch ( ConfigException ) {
+		} catch ( ConfigException $e ) {
 			return null;
 		}
 	}
