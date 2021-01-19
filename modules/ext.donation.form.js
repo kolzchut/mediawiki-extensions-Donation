@@ -159,7 +159,7 @@
 
 		amount = result.transaction_response.amount;
 		email = result.transaction_response.user_form_data.email.trim();
-		name = result.transaction_response.user_form_data.name.trim();
+		name = result.transaction_response.user_form_data.contact.trim();
 		subscribe = result.transaction_response.user_form_data.subscribe;
 
 		mw.track( 'kz.donation', {
@@ -217,7 +217,9 @@
 				response_language: mw.config.get( 'wgContentLanguage' ) === 'he' ? 'hebrew' : 'english',
 				subscribe: $( '#subscribe' ).is( ':checked' ),
 				email: $( '#email' ).val(),
-				name: $( '#name' ).val()
+				// Must use "contact" here. While it can be changed in tranzila interface,
+				// it's not clear if the receipts will reflect that
+				contact: $( '#name' ).val()
 			},
 			function ( err, result ) {
 				$statusIcon.hide();
