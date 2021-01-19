@@ -73,7 +73,8 @@
 				"donation-freq-annually",
 				"donation-thank-you",
 				"donation-input-required",
-				"donation-loading"
+				"donation-loading",
+				"donation-charge-failed"
 			]
 		},
 		"ext.donation.special": {

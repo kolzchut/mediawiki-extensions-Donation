@@ -6,6 +6,7 @@
 	"donation": "תרומה לכל זכות",
 	"donation-desc": "עמוד תודה לתרומות",
 	"donation-title": "תרומה",
+	"donation-charge-failed": "העסקה לא עברה. אנא בדקו את פרטי האשראי ונסו שנית.",
 	"donation-modal-title": "תרומה מאובטחת לכל זכות",
 	"donation-modal-close-btn": "סגירה",
 	"donation-input-required": "שדה חובה",

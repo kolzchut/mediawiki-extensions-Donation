@@ -224,15 +224,21 @@
 			function ( err, result ) {
 				$statusIcon.hide();
 				if (
-					err.messages || result.errors || result.transaction_response.success === false
+					err.messages || result.errors
 				) {
 					mw.track( 'kz.donation', {
-						action: 'charge-failed',
-						label: err.messages || result.errors || result.transaction_response.error
+						action: 'pre-charge-failed',
+						label: err.messages || result.errors
 					} );
 					toggleSubmitButton();
 					handleErrors(
-						err.messages || result.errors || result.transaction_response.error );
+						err.messages || result.errors );
+				} else if ( result.transaction_response.success === false ) {
+					addErr( 'submit', mw.msg( 'donation-charge-failed' ) );
+					mw.track( 'kz.donation', {
+						action: 'charge-failed',
+						label: result.transaction_response.error
+					} );
 				} else {
 					onSuccess( result );
 				}

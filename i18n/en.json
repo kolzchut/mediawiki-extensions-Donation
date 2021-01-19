@@ -5,6 +5,7 @@
 	"donation": "Donate to Kol-Zchut",
 	"donation-desc": "A donation form",
 	"donation-title": "Donation",
+	"donation-charge-failed": "העסקה לא עברה. אנא בדקו את פרטי האשראי ונסו שנית.",
 	"donation-thank-you": "<p>$1, תודה על תמיכתך בכל זכות!</p><p>אנו מודים לך על תרומתך בסך $2 $3. התרומה תאפשר לנו לשמור על המידע באתר עדכני ולהוסיף עליו עוד, כדי לשרת את כלל הציבור עם מידע מקיף ומהימן, שיעזור לכמה שיותר מאתנו לקבל את מה שמגיע להם.</p>\n\n<p><div>בהערכה רבה,</div><div>צוות כל זכות</div></p><p>נ.ב. ברגעים אלו נשלחת אליך בדוא\"ל קבלה דיגיטלית.</p>",
 	"donation-modal-title": "Donate to Kol-Zchut",
 	"donation-modal-close-btn": "Close",
