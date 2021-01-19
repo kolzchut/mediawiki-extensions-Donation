@@ -345,7 +345,7 @@
 		} );
 
 		fields.onEvent( 'ready', function () {
-			mw.log( 'ready' );
+			mw.log( 'donation.form.hostedFields.ready' );
 			mw.track( 'kz.donation', {
 				action: 'loaded',
 				label: ''
@@ -362,6 +362,7 @@
 		} );
 
 		fields.onEvent( 'validityChange', function ( event ) {
+			mw.log( 'donation.form.hostedFields.validityChange: ' + event.field + ' = ' + event.isValid );
 			switch ( event.field ) {
 				case 'credit_card_number':
 					validCCN = event.isValid;
