@@ -79,9 +79,9 @@
 
 		parsedAmount = parseInt( amount ); // Make sure it's an integer
 		if ( !parsedAmount ) {
-			addErr( 'amount', 'יש לבחור או להקליד סכום' );
-		} else if ( parsedAmount < 5 ) {
-			addErr( 'amount', 'יש להקליד סכום שלם - לפחות 5 ש"ח' );
+			addErr( 'amount', 'יש לבחור או להקליד סכום' ); // @todo i18n
+		} else if ( parsedAmount < 5 ) { // @todo get from config
+			addErr( 'amount', 'יש להקליד סכום שלם - לפחות 5 ש"ח' ); // @todo i18n + get from config
 		} else {
 			// Success!
 			changeAmount( parsedAmount );
@@ -101,7 +101,7 @@
 			return true;
 		}
 
-		addErr( 'email', 'Invalid email address' );
+		addErr( 'email', 'Invalid email address' ); // @todo i18n
 		return false;
 	}
 
@@ -417,28 +417,28 @@
 			switch ( event.field ) {
 				case 'credit_card_number':
 					if ( !validCCN && !emptyCCN ) {
-						addErr( event.field, 'מספר כרטיס אשראי לא תקין' );
+						addErr( event.field, 'מספר כרטיס אשראי לא תקין' ); // @todo i18n
 					} else {
 						remErr( event.field );
 					}
 					break;
 				case 'cvv':
 					if ( !validCCV && !emptyCCV ) {
-						addErr( event.field, 'CVV לא תקין' );
+						addErr( event.field, 'CVV לא תקין' ); // @todo i18n
 					} else {
 						remErr( event.field );
 					}
 					break;
 				case 'expiry':
 					if ( !validExp && !emptyExp ) {
-						addErr( event.field, 'תאריך תום תוקף כרטיס לא תקין' );
+						addErr( event.field, 'תאריך תום תוקף כרטיס לא תקין' ); // @todo i18n
 					} else {
 						remErr( event.field );
 					}
 					break;
 				case 'card_holder_id_number':
 					if ( !validCHID && !emptyCHID ) {
-						addErr( event.field, 'מספר תעודת זהות לקוח לא תקינה' );
+						addErr( event.field, 'מספר תעודת זהות אינו תקין' ); // @todo i18n
 					} else {
 						remErr( event.field );
 					}
@@ -446,21 +446,16 @@
 			}
 		} );
 
-		fields.onEvent( 'inputSubmitRequest', function ( event ) {
-			mw.log( 'ready04---keypress- ' + event.field );
-		} );
-
 		fields.onEvent( 'cardTypeChange', function ( event ) {
 			$( '#card-img' ).attr( 'class', 'card-img-' + event.cardType );
 		} );
-
 	}
 
 	function getForm() {
 		var templateData,
 			$el,
-			defaultSum = 200, // Get this from config,
-			defaultCurrency = '₪'; // Get this from config
+			defaultSum = 200, // @todo Get this from config,
+			defaultCurrency = '₪'; // @todo Get this from config
 
 		templateData = {
 			sum: defaultSum,
