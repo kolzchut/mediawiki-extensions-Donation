@@ -21,11 +21,19 @@ class Hooks {
 	 * @param array &$vars
 	 */
 	public static function onResourceLoaderGetConfigVars( &$vars ) {
-		$vars += [
-			'wgDonationNewsletterSubscriptionUrl' => self::getConfigVar( 'NewsletterSubscriptionUrl' ),
-			'wgDonationNewsletterSubscriptionChecked' => self::getConfigVar( 'NewsletterSubscriptionChecked' ),
-			'wgDonationTranzilaTerminalName' => self::getConfigVar( 'TranzilaTerminalName' )
+		$varNames = [
+			'SuggestedAmounts',
+			'DefaultAmount',
+			'MinimumAmount',
+			'MaximumAmount',
+			'NewsletterSubscriptionUrl',
+			'NewsletterSubscriptionChecked',
+			'TranzilaTerminalName'
 		];
+
+		foreach ( $varNames as $name ) {
+			$vars[ 'wg' . self::EXTENSION_NAME . $name ] = self::getConfigVar( $name );
+		}
 
 	}
 

@@ -7,7 +7,9 @@
 		$cardErrors,
 		$amount,
 		$suggestedAmount,
-		$btn,
+		$submitBtn,
+		defaultCurrency = '₪', // @todo Get this from config
+		minimumAmount = mw.config.get( 'wgDonationMinimumAmount' ),
 		btnChargeEnabled = true,
 		prefixErrCls = 'errcls-',
 		validCCN = false,
@@ -25,7 +27,7 @@
 
 	function toggleSubmitButton( forcedValue ) {
 		btnChargeEnabled = forcedValue !== 'undefined' ? forcedValue : !btnChargeEnabled;
-		$btn.prop( 'disabled', !btnChargeEnabled );
+		$submitBtn.prop( 'disabled', !btnChargeEnabled );
 	}
 
 	function removeAllErrors() {
@@ -62,13 +64,18 @@
 	}
 
 	function changeAmount( value ) {
+		var submitBtnMsgName,
+			submitBtnText;
+
 		mw.log( 'amount changed: ' + value );
 		mw.track( 'kz.donation', {
 			action: 'amount-changed',
 			label: value,
 			value: value
 		} );
-		$( '.btn-amount' ).text( value );
+		submitBtnMsgName = value ? 'donation-btn-with-amount' : 'donation-btn';
+		submitBtnText = mw.msg( submitBtnMsgName, value, defaultCurrency );
+		$submitBtn.find( '.btn-text' ).html( submitBtnText );
 		remErr( 'amount' );
 	}
 
@@ -76,19 +83,17 @@
 		var amount, parsedAmount;
 
 		amount = $suggestedAmount.is( ':checked' ) ? $suggestedAmount.filter( ':checked' ).val() : $amount.val();
-
 		parsedAmount = parseInt( amount ); // Make sure it's an integer
-		if ( !parsedAmount ) {
-			addErr( 'amount', 'יש לבחור או להקליד סכום' ); // @todo i18n
-		} else if ( parsedAmount < 5 ) { // @todo get from config
-			addErr( 'amount', 'יש להקליד סכום שלם - לפחות 5 ש"ח' ); // @todo i18n + get from config
-		} else {
-			// Success!
-			changeAmount( parsedAmount );
-			return true;
+
+		if ( isNaN( parsedAmount ) || parsedAmount < minimumAmount ) { // @todo get from config
+			changeAmount( null );
+			addErr( 'amount', 'יש לבחור או להקליד סכום שלם מ-5 ש"ח ומעלה' ); // @todo i18n + get from config
+			return false;
 		}
 
-		return false;
+		// Success!
+		changeAmount( parsedAmount );
+		return true;
 	}
 
 	function validateEmail() {
@@ -202,7 +207,7 @@
 		validateAmount();
 		validateEmail();
 
-		$btn.append( $statusIcon );
+		$submitBtn.append( $statusIcon );
 		toggleSubmitButton();
 
 		fields.charge(
@@ -250,7 +255,7 @@
 		$cardErrors = $form.find( '.Card-Errors' );
 		$amount = $form.find( '#amount' );
 		$suggestedAmount = $form.find( 'input[name=suggested_amount]' );
-		$btn = $form.find( '.donation-form .btn' );
+		$submitBtn = $form.find( '.donation-form .btn-submit' );
 
 		$form.find( '.donation-form' ).on( 'submit', function ( e ) {
 			e.preventDefault();
@@ -267,7 +272,7 @@
 			$suggestedAmount.prop( 'checked', false );
 		} );
 
-		$amount.on( 'change', function () {
+		$amount.on( 'input', function () {
 			// De-select the suggested amounts
 			$suggestedAmount.prop( 'checked', false );
 			validateAmount();
@@ -460,17 +465,36 @@
 
 	function getForm() {
 		var templateData,
+			submitBtnMsgName,
+			submitBtnText,
 			$el,
-			defaultSum = 200, // @todo Get this from config,
-			defaultCurrency = '₪'; // @todo Get this from config
+			suggestedAmounts = mw.config.get( 'wgDonationSuggestedAmounts', [] ),
+			suggestedAmountsIndexed = [],
+			defaultAmount = mw.config.get( 'wgDonationDefaultAmount' );
+
+		// Default amount *must* be on of suggestedAmounts
+		if ( suggestedAmounts.indexOf( defaultAmount ) === -1 ) {
+			defaultAmount = null;
+		}
+
+		suggestedAmounts.forEach( function ( val, i ) {
+			var isDefault = defaultAmount && defaultAmount === val ? 'checked' : '';
+			suggestedAmountsIndexed.push( { index: i, amount: val, checked: isDefault } );
+		} );
+
+		submitBtnMsgName = defaultAmount ? 'donation-btn-with-amount' : 'donation-btn';
+		submitBtnText = mw.msg( submitBtnMsgName, defaultAmount, defaultCurrency );
 
 		templateData = {
-			sum: defaultSum,
+			minimumAmount: minimumAmount,
+			// If the max is 0, it won't be used at all
+			maximumAmount: mw.config.get( 'wgDonationMaximumAmount' ) || false,
 			currency: defaultCurrency,
+			suggestedAmounts: suggestedAmountsIndexed,
 			newsletterSubscriptionEnabled: mw.config.get( 'wgDonationNewsletterSubscriptionUrl' ) !== null,
 			newsletterSubscriptionChecked: mw.config.get( 'wgDonationNewsletterSubscriptionChecked' ) === true ? 'checked' : '',
 			'donation-required-indicator': mw.msg( 'donation-required-indicator' ),
-			'donation-btn-text': mw.msg( 'donation-btn-text', defaultSum, defaultCurrency ),
+			'donation-btn-text': submitBtnText,
 			'donation-newsletter-subscribe': mw.msg( 'donation-newsletter-subscribe' ),
 			'donation-email': mw.msg( 'donation-email' ),
 			'donation-cc-holder-id': mw.msg( 'donation-cc-holder-id' ),

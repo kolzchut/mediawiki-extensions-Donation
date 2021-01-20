@@ -13,6 +13,22 @@
 		"MediaWiki\\WikiRights\\Donation\\Hooks": "includes/Hooks.php"
 	},
 	"config": {
+		"DonationSuggestedAmounts": {
+			"value": [ 100, 200, 360 ],
+			"description": "The suggested amounts for donation. Must be 3."
+		},
+		"DonationDefaultAmount": {
+			"value": null,
+			"description": "The default suggested amount. Must be one of the $wgDonationSuggestedAmounts."
+		},
+		"DonationMinimumAmount": {
+			"value": 5,
+			"description": "The minimum amount allowed for a donation"
+		},
+		"DonationMaximumAmount": {
+			"value": 25000,
+			"description": "The maximum amount allowed for a donation"
+		},
 		"DonationNewsletterSubscriptionUrl": {
 			"value": null,
 			"description": "API URL for the newsletter subscription. Only supports MailChimp."
@@ -59,7 +75,8 @@
 				"donationForm.mustache": "templates/donationForm.mustache"
 			},
 			"messages": [
-				"donation-btn-text",
+				"donation-btn",
+				"donation-btn-with-amount",
 				"donation-newsletter-subscribe",
 				"donation-newsletter-sub-success",
 				"donation-newsletter-sub-fail",

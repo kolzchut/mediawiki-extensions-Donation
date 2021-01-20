@@ -7,23 +7,17 @@
 		<ul class="Card-Errors"></ul>
 		<div class="d-input-group">
 			<div class="suggested-amount-boxes">
+				{{#suggestedAmounts}}
 				<div class="suggested-amount-box">
-					<input class="box-input suggested-amount mc_input" id="donation_suggested_amount_1" type="radio" value="360" name="suggested_amount">
-					<label class="box-label" for="donation_suggested_amount_1"><span class="currency-sign">{{currency}}</span><span class="box-amount mc_amount symbol_first">360</span></label>
+					<input class="box-input suggested-amount mc_input" id="donation_suggested_amount_{{index}}" type="radio" {{checked}} value="{{amount}}" name="suggested_amount">
+					<label class="box-label" for="donation_suggested_amount_{{index}}"><span class="currency-sign">{{currency}}</span><span class="box-amount mc_amount symbol_first">{{amount}}</span></label>
 				</div>
-				<div class="suggested-amount-box">
-					<input class="box-input suggested-amount mc_input" id="donation_suggested_amount_2" type="radio" checked value="200" name="suggested_amount">
-					<label class="box-label" for="donation_suggested_amount_2"><span class="currency-sign">{{currency}}</span><span class="box-amount mc_amount symbol_first">200</span></label>
-				</div>
-				<div class="suggested-amount-box">
-					<input class="box-input suggested-amount mc_input" id="donation_suggested_amount_3" type="radio" value="100" name="suggested_amount">
-					<label class="box-label" for="donation_suggested_amount_3"><span class="currency-sign">{{currency}}</span><span class="box-amount mc_amount symbol_first">100</span></label>
-				</div>
+				{{/suggestedAmounts}}
 			</div>
 		</div>
 		<div class="d-input-group">
 			<label class="label-tiny sr-only" for="amount">{{donation-amount-other}}</label>
-			<input name="amount" type="number" id="amount" class="InputContainer" autocomplete="off" placeholder="{{donation-amount-other}}">
+			<input name="amount" type="number" id="amount" min="{{minimumAmount}}" {{#maximumAmount}}max="{{maximumAmount}}"{{/maximumAmount}} class="InputContainer" autocomplete="off" placeholder="{{donation-amount-other}}">
 			<span class="currency">₪</span>
 		</div>
 		<div class="d-input-group">
