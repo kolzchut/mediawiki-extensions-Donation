@@ -179,7 +179,7 @@
 		$form.hide();
 
 		// It seems tranzilla returns our boolean as a string, so check for 'true'
-		if ( subscribe === 'true' ) {
+		if ( mw.config.get( 'wgDonationNewsletterSubscriptionUrl' ) !== null && subscribe === 'true' ) {
 			subscribeToNewsletter(
 				email,
 				name
@@ -467,6 +467,8 @@
 		templateData = {
 			sum: defaultSum,
 			currency: defaultCurrency,
+			newsletterSubscriptionEnabled: mw.config.get( 'wgDonationNewsletterSubscriptionUrl' ) !== null,
+			newsletterSubscriptionChecked: mw.config.get( 'wgDonationNewsletterSubscriptionChecked' ) === true ? 'checked' : '',
 			'donation-required-indicator': mw.msg( 'donation-required-indicator' ),
 			'donation-btn-text': mw.msg( 'donation-btn-text', defaultSum, defaultCurrency ),
 			'donation-newsletter-subscribe': mw.msg( 'donation-newsletter-subscribe' ),

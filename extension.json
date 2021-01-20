@@ -14,8 +14,12 @@
 	},
 	"config": {
 		"DonationNewsletterSubscriptionUrl": {
-			"value": "https://kolzchut.us6.list-manage.com/subscribe/post-json?u=2fa0d96799c87ec50bb4d8a6d&id=f1b888cca2&c=?",
+			"value": null,
 			"description": "API URL for the newsletter subscription. Only supports MailChimp."
+		},
+		"DonationNewsletterSubscriptionChecked": {
+			"value": false,
+			"description": "Whether the subscription checkbox is checked by default"
 		},
 		"DonationTranzilaTerminalName": {
 			"value": null,

@@ -23,6 +23,7 @@ class Hooks {
 	public static function onResourceLoaderGetConfigVars( &$vars ) {
 		$vars += [
 			'wgDonationNewsletterSubscriptionUrl' => self::getConfigVar( 'NewsletterSubscriptionUrl' ),
+			'wgDonationNewsletterSubscriptionChecked' => self::getConfigVar( 'NewsletterSubscriptionChecked' ),
 			'wgDonationTranzilaTerminalName' => self::getConfigVar( 'TranzilaTerminalName' )
 		];
 

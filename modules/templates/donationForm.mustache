@@ -57,11 +57,13 @@
 			<label class="label-tiny" for="email">{{donation-email}}<span class="required-indicator" aria-label="{{donation-required-indicator}}"></span></label>
 			<input type="email" id="email" name="email" required placeholder="name@example.com" class="InputContainer">
 		</div>
+		{{#newsletterSubscriptionEnabled}}
 		<div class="d-input-group">
 			<label for="subscribe">
-				<input type="checkbox" id="subscribe" name="subscribe" checked>&nbsp;{{donation-newsletter-subscribe}}
+				<input type="checkbox" id="subscribe" name="subscribe" {{newsletterSubscriptionChecked}}>&nbsp;{{donation-newsletter-subscribe}}
 			</label>
 		</div>
+		{{/newsletterSubscriptionEnabled}}
 		<div>
 			<button type="submit" disabled="" class="btn btn-secondary btn-submit">
 				<span class="btn-text">{{{donation-btn-text}}}</span>
