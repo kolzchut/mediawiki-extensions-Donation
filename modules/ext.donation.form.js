@@ -525,6 +525,7 @@
 		if ( hotjarTrigger ) {
 			window.hj=window.hj||function(){(hj.q=hj.q||[]).push(arguments)}; // eslint-disable-line
 			window.hj( 'trigger', hotjarTrigger );
+			window.hj( 'tagRecording', [ hotjarTrigger ] );
 		}
 	}
 

@@ -12,6 +12,7 @@ https://www.mediawiki.org/wiki/Manual:Extensions#Installing_an_extension
 - `$wgDonationNewsletterSubscriptionUrl`: Mailchimp API url. The checkbox will not show if this is null (default)
 - `$wgDonationNewsletterSubscriptionChecked`: Boolean. Should the subscription checkbox be checked by default
 - `$wgDonationHotjarTrigger`: A trigger name for hotjar to start recording, etc. Keep null to disable.
+  Recording will also be tagged with the trigger name.
 
 ### Important notice for `wgDonationSuggestedAmounts`!
 MediaWiki doesn't allow overriding flat arrays in its configuration - it always merges the arrays.
