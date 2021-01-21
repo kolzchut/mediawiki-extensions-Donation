@@ -15,6 +15,23 @@ class Hooks {
 	private static $config;
 
 	/**
+	 * BeforePageDisplay hook
+	 * Adds the modules to the page
+	 *
+	 * @param \OutputPage &$out
+	 * @param \Skin &$skin current skin
+	 *
+	 * @return bool
+	 */
+	public static function onBeforePageDisplay( \OutputPage &$out, \Skin &$skin ) {
+		// Don't add the module if we don't have a terminal name or we're on the donation special page
+		$tranzilaTerminalName = self::getConfigVar( 'TranzilaTerminalName' );
+		if ( !$out->getTitle()->isSpecial( 'Donation' ) && !empty( $tranzilaTerminalName ) ) {
+			$out->addModules( 'ext.donation.modal' );
+		};
+	}
+
+	/**
 	 * ResourceLoaderGetConfigVars hook handler
 	 * @see https://www.mediawiki.org/wiki/Manual:Hooks/ResourceLoaderGetConfigVars
 	 *

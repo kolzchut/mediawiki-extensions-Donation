@@ -2,6 +2,11 @@
 See MediaWiki's generic extension installation instructions:
 https://www.mediawiki.org/wiki/Manual:Extensions#Installing_an_extension
 
+## Usage
+Module `ext.donation.modal` will be added to every page, available as `mw.donation.modal`. It can
+start a modal with the donation form by calling `mw.donation.modal.show()`. Any element with the
+`.donationBtn` class will also the trigger the same.
+
 ## Configuration
 - `$wgDonationTranzilaTerminalName`: Tranzila terminal name
 - `$wgDonationSuggestedAmounts`: array of suggested amounts for donation. Must be 3 items.

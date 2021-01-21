@@ -52,6 +52,9 @@
 	"Hooks": {
 		"ResourceLoaderGetConfigVars": [
 			"MediaWiki\\WikiRights\\Donation\\Hooks::onResourceLoaderGetConfigVars"
+		],
+		"BeforePageDisplay": [
+			"MediaWiki\\WikiRights\\Donation\\Hooks::onBeforePageDisplay"
 		]
 	},
 	"ExtensionMessagesFiles": {
