@@ -57,7 +57,7 @@
 
 	};
 
-	$( '.donationBtn' ).on( 'click', function () {
+	$( document ).on( 'click', '.donationBtn', function () {
 		mw.donation.modal.show();
 	} );
 }() );
