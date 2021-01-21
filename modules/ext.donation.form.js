@@ -507,7 +507,8 @@
 			'donation-freq-once': mw.msg( 'donation-freq-once' ),
 			'donation-freq-monthly': mw.msg( 'donation-freq-monthly' ),
 			'donation-freq-annually': mw.msg( 'donation-freq-annually' ),
-			'donation-loading': mw.msg( 'donation-loading' )
+			'donation-loading': mw.msg( 'donation-loading' ),
+			'donation-security-soothing': mw.msg( 'donation-security-soothing' )
 		};
 
 		$el = mw.template.get( 'ext.donation.form', 'donationForm.mustache' )
