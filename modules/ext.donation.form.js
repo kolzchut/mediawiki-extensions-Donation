@@ -518,7 +518,18 @@
 		return $el.first();
 	}
 
+	function triggerHotjar() {
+		// Trigger Hotjar, if enabled. Make sure a queue is available first
+		var hotjarTrigger = mw.config.get( 'wgDonationHotjarTrigger' );
+
+		if ( hotjarTrigger ) {
+			window.hj=window.hj||function(){(hj.q=hj.q||[]).push(arguments)}; // eslint-disable-line
+			window.hj( 'trigger', hotjarTrigger );
+		}
+	}
+
 	function init( $elem ) {
+		triggerHotjar();
 		$elem = $elem || $( '#bodyContent' );
 		$.ajaxSetup( {
 			cache: true

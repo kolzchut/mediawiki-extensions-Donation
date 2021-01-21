@@ -8,9 +8,10 @@ https://www.mediawiki.org/wiki/Manual:Extensions#Installing_an_extension
    See the following section for information on how to set it properly.
 - `$wgDonationDefaultAmount`: the default amount for donation. Must be one of `$wgDonationSuggestedAmounts`.
 - `$wgDonationMinimumAmount`: The minimum amount allowed for a donation. Cannot be lower than 1.
-- `$wgDonationMaximumAmount`: The maximum amount allowed for a donation. Set to 0 to disable.  
+- `$wgDonationMaximumAmount`: The maximum amount allowed for a donation. Set to 0 to disable.
 - `$wgDonationNewsletterSubscriptionUrl`: Mailchimp API url. The checkbox will not show if this is null (default)
 - `$wgDonationNewsletterSubscriptionChecked`: Boolean. Should the subscription checkbox be checked by default
+- `$wgDonationHotjarTrigger`: A trigger name for hotjar to start recording, etc. Keep null to disable.
 
 ### Important notice for `wgDonationSuggestedAmounts`!
 MediaWiki doesn't allow overriding flat arrays in its configuration - it always merges the arrays.

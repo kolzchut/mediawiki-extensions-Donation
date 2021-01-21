@@ -28,7 +28,8 @@ class Hooks {
 			'MaximumAmount',
 			'NewsletterSubscriptionUrl',
 			'NewsletterSubscriptionChecked',
-			'TranzilaTerminalName'
+			'TranzilaTerminalName',
+			'HotjarTrigger'
 		];
 
 		foreach ( $varNames as $name ) {

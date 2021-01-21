@@ -40,6 +40,10 @@
 		"DonationTranzilaTerminalName": {
 			"value": null,
 			"description": "The name of the Tranzila terminal for processing the charge"
+		},
+		"DonationHotjarTrigger": {
+			"value": null,
+			"description": "The name of a HotJar trigger"
 		}
 	},
 	"ConfigRegistry": {
