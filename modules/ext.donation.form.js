@@ -352,7 +352,7 @@
 		fields.onEvent( 'ready', function () {
 			mw.log( 'donation.form.hostedFields.ready' );
 			mw.track( 'kz.donation', {
-				action: 'loaded',
+				action: 'hosted-fields-loaded',
 				label: ''
 			} );
 			$( '.donation-loading' ).hide();

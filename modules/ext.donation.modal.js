@@ -49,7 +49,7 @@
 
 				$modal.modal( 'show' );
 				mw.track( 'kz.donation', {
-					action: 'modal-loaded',
+					action: 'modal-shown',
 					label: '' // Pass an empty label, or GTM will pick up the previous one
 				} );
 			} );
