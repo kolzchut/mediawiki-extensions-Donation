@@ -55,10 +55,14 @@
 		],
 		"BeforePageDisplay": [
 			"MediaWiki\\WikiRights\\Donation\\Hooks::onBeforePageDisplay"
+		],
+		"ParserFirstCallInit": [
+			"MediaWiki\\WikiRights\\Donation\\Hooks::onParserFirstCallInit"
 		]
 	},
 	"ExtensionMessagesFiles": {
-		"DonationAlias": "Donation.i18n.alias.php"
+		"DonationAlias": "Donation.i18n.alias.php",
+		"DonationMagic": "Donation.i18n.magic.php"
 	},
 	"MessagesDirs": {
 		"Donation": [
@@ -117,6 +121,10 @@
 				"donation-modal-title",
 				"donation-modal-close-btn"
 			]
+		},
+		"ext.donation.parserFunctionHelper": {
+			"scripts": "ext.donation.parserFunctionHelper.js",
+			"dependencies": "ext.donation.form"
 		}
 	},
 	"ResourceFileModulePaths": {
