@@ -529,9 +529,10 @@
 		}
 	}
 
-	function init( $elem ) {
+	function init( selector ) {
+		var $elem = $( selector ) || $( '#bodyContent' );
+
 		triggerHotjar();
-		$elem = $elem || $( '#bodyContent' );
 		$.ajaxSetup( {
 			cache: true
 		} );
