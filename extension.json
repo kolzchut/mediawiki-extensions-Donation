@@ -119,6 +119,7 @@
 			"styles": "ext.donation.modal.less",
 			"messages": [
 				"donation-modal-title",
+				"donation-modal-subtitle",
 				"donation-modal-close-btn"
 			]
 		},

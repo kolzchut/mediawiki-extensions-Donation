@@ -25,7 +25,9 @@
 				'margin-left': 'auto'
 			} );
 			$modalContent = $( '<div>' ).attr( 'class', 'modal-content' );
-			$modalHeader = $( '<div>' ).addClass( 'modal-header' ).html( '<button type="button" class="close" data-dismiss="modal" aria-label="' + mw.msg( 'donation-modal-close-btn' ) + '"><span aria-hidden="true">&times;</span></button><h4 class="modal-title">' + mw.msg( 'donation-modal-title' ) + '</h4>' );
+			$modalHeader = $( '<div>' ).addClass( 'modal-header' ).html( '<button type="button" class="close" data-dismiss="modal" aria-label="' +
+				mw.msg( 'donation-modal-close-btn' ) + '"><span aria-hidden="true">&times;</span></button><div class="modal-title"><h4>' +
+				mw.msg( 'donation-modal-title' ) + '</h4>' + mw.msg( 'donation-modal-subtitle' ) + '</div>' );
 			$modalBody = $( '<div>' ).attr( 'class', 'modal-body' );
 
 			$modal.append( $modalDialog );
