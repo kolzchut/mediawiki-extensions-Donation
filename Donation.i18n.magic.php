@@ -9,6 +9,6 @@ $magicWords['en'] = [
 
 /**  Hebrew (עברית) */
 $magicWords['he'] = [
-	'DonationForm'    => [ 0, 'טופס_תרומה' ]
+	'DonationForm' => [ 0, 'טופס_תרומה' ]
 ];
 

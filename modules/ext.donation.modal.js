@@ -54,6 +54,12 @@
 					action: 'modal-shown',
 					label: '' // Pass an empty label, or GTM will pick up the previous one
 				} );
+
+				mw.trackSubscribe( 'kz.donation', function ( topic, data ) {
+					if ( data && data.action === 'success' ) {
+						$modal.find( '.modal-title' ).html( '<h4>' + mw.msg( 'donation-thank-you-title' ) + '</h4>' );
+					}
+				} );
 			} );
 		}
 
