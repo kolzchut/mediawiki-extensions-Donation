@@ -11,7 +11,7 @@
 }
 
 .donation-form-wrapper {
-	max-width: 210px;
+	max-width: 220px;
 	position: relative; /* To absolutely position the loader */
 }
 
@@ -48,12 +48,6 @@
 	margin-bottom: 0.5em;
 }
 
-label.label-tiny {
-	font-size: 70%;
-	display: block;
-	margin-bottom: 0;
-}
-
 // Tooltip-like behavior for mobile
 // (let's pretend I actually understand why this works only on mobile)
 label > i:hover:after {
@@ -77,15 +71,13 @@ label > i:hover:after {
 .InputContainer {
 	position: relative;
 	display: block;
-	height: 26px;
-	width: 210px;
-	border-color: @color-green;
-	border-style: solid;
-	border-width: 1.5px;
+	height: 30px;
+	width: 100%;
+	border: 1px solid #c3c3c3;
 }
 
 .InputContainer#credit_card_number {
-	padding-right: 35px; // Leave space for the credit card image
+	padding-right: 45px; // Leave space for the credit card image, .card-img width
 }
 
 .InputContainer#expiry {
@@ -118,12 +110,12 @@ label > i:hover:after {
 #card-img {
 	.background-image-svg-quick( 'images/cc/generic' );
 	background-size: contain;
-	height: 20px;
-	width: 31px;
+	width: 37.2px;
+	height: 24px; // Should be input height - top*2
+	top: 3px;
+	right: 3px;
 	background-repeat: no-repeat;
 	position: absolute;
-	right: 3px;
-	top: 3px;
 }
 
 #card-img.card-img-ae {
@@ -186,9 +178,8 @@ label > i:hover:after {
 	.box-label {
 		font-weight: 600;
 		height: 100%;
-		color: @color-green;
 		text-align: center;
-		border: 1.5px solid @color-green;
+		border: 1px solid #c3c3c3;
 		display: block;
 		transition: color 0.1s, background-color 0.1s, border-color 0.1s, font-weight 0.1s;
 		position: relative;

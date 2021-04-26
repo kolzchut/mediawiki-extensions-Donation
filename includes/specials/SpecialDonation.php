@@ -6,8 +6,8 @@ use SpecialPage;
 
 class SpecialDonation extends SpecialPage {
 
-	public function __construct() {
-		parent::__construct( 'Donation' );
+	public function __construct( $name = 'Donation' ) {
+		parent::__construct( $name );
 	}
 
 	/**

@@ -294,10 +294,10 @@
 					'font-size': '17px',
 					'-webkit-font-smoothing': 'antialiased',
 					'-moz-osx-font-smoothing': 'grayscale',
-					color: '#32325d',
+					color: '#202121', // @content-text-color
 					position: 'absolute',
-					'line-height': '24px',
-					height: '24px',
+					'line-height': '30px',
+					height: '30px',
 					top: '0'
 				},
 				'input:-ms-input-placeholder': {
